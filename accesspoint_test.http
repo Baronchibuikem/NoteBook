@@ -1,0 +1,44 @@
+# For making a post request to login a user
+POST http://localhost:5000/api/users/login
+content-type: application/json
+
+{
+    "email": "pastor@gmail.com",
+    "password": "admin12345"
+}
+
+###
+
+# For making request to get all the user's on the database
+GET http://localhost:5000/api/users/
+Content-Type: application/json
+
+###
+
+#For getting user by id
+GET http://localhost:5000/api/users/5f9e7d8b315bb90f842893ae
+Content-Type: application/json
+
+###
+
+# For registering a user into the database
+POST http://localhost:5000/api/users/register
+Content-Type: application/json
+
+{
+  "firstName": "Priye",
+  "lastName": "Obaremi",
+  "email": "priyeobaremi@gmail.com",
+  "password": "admin12345",
+  "password2": "admin12345",
+  "roleGroup": "Human Resource",
+  "roleName": "Designer"  
+}
+
+###
+
+#For deleting a user
+DELETE http://localhost:5000/api/users/5faa703494ecb24484934df3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOWU3ZDhiMzE1YmI5MGY4NDI4OTNhZSIsImVtYWlsIjoicGFzdG9yQGdtYWlsLmNvbSIsImlhdCI6MTYwNTAwNjEwMCwiZXhwIjoxNjA1MDI3NzAwfQ.4PKxUP_Yzhb8fdiGPTcsPvuqOaaUyoWae8JWKlqs-4E
+

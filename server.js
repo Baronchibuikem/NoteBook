@@ -4,7 +4,10 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const path = require("path");
 const cors = require("cors");
+// import routes
 const users = require("./routes/api/users");
+// DB Config
+const connectDB = require("./db/connection");
 
 const app = express();
 
@@ -15,8 +18,6 @@ app.use(bodyParser.json());
 // cors middleware
 app.use(cors());
 
-// DB Config
-const connectDB = require("./db/connection");
 
 // Connect to MongoDB
 connectDB();

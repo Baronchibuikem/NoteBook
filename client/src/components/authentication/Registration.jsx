@@ -6,6 +6,13 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
+
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 import "../../assets/css/Login.css";
 import { Link, Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -32,11 +39,28 @@ const useStyles = makeStyles((theme) => ({
   paddingBottom: {
     marginBottom: "10px",
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
 }));
 
 export default function Register() {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);  
+  const [team, setTeam] = useState('');
+  const [subTeam, setSubTeam] = useState("")
+
+  const handleTeamChange = (event) => {
+    setTeam(event.target.value);
+  };
+
+  const handleSubTeamChange = (event) => {
+    setSubTeam(event.target.value);
+  };
 
   const { register, handleSubmit, errors, watch } = useForm();
 
@@ -83,13 +107,13 @@ export default function Register() {
             >
               Sign up
             </Typography>
-            {/* Enter your fullname */}
+            {/* Enter your first name */}
 
-            <Typography className={classes.heading}>Full Name</Typography>
+            <Typography className={classes.heading}>First Name</Typography>
 
             <TextField
               id="outlined-basic"
-              label="Enter your fullname here"
+              label="Enter your first name here"
               variant="outlined"
               className={classes.root}
               inputRef={register({ required: true })}
@@ -98,14 +122,32 @@ export default function Register() {
             />
             <h6 className="text-left font-italic text-danger">
               {errors.name && errors.name.type === "required" && (
-                <p>Full name is required</p>
+                <p>First name is required</p>
+              )}
+            </h6>
+
+            
+            {/* Enter your last name */}
+
+            <Typography className={classes.heading}>Last Name</Typography>
+            <TextField
+              id="outlined-basic"
+              label="Enter your First Name here"
+              variant="outlined"
+              className={classes.root}
+              inputRef={register({ required: true })}
+              name="name"
+              fullWidth
+            />
+            <h6 className="text-left font-italic text-danger">
+              {errors.first_name && errors.first_name.type === "required" && (
+                <p>Last name is required</p>
               )}
             </h6>
 
             {/* Enter your email */}
 
             <Typography className={classes.heading}>Email</Typography>
-
             <TextField
               id="outlined-basic"
               label="Enter your email here"
@@ -121,10 +163,49 @@ export default function Register() {
                 <p>Email field is required</p>
               )}
             </h6>
+
+                {/* Department Role */}
+            <FormControl variant="outlined" className={classes.root}>
+              <InputLabel id="">Team</InputLabel>
+              <Select
+                value={team}
+                onChange={handleTeamChange}
+                label="Team"
+                inputRef={register({required: true})}
+                name= "Team"                
+              >
+                <MenuItem value={5}>IT and Design</MenuItem>
+                <MenuItem value={10}>Human Resoure</MenuItem>
+                <MenuItem value={20}>Project Management</MenuItem>
+                <MenuItem value={30}>Business Development</MenuItem>
+                <MenuItem value={40}>Office Admin</MenuItem>
+                <MenuItem value={50}>Support Staff</MenuItem>
+              </Select>
+            </FormControl>
+
+            {/* Department unit */}
+            <FormControl variant="outlined" className={classes.root}>
+              <InputLabel id="demo-simple-select-outlined-label">Department Name</InputLabel>
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={subTeam}
+                onChange={handleSubTeamChange}
+                label="Department Name"
+                
+              >
+                <MenuItem value={5}>Frontend Developer</MenuItem>
+                <MenuItem value={10}>Backend Developer</MenuItem>
+                <MenuItem value={20}>IT Support</MenuItem>
+                <MenuItem value={30}>Design Team</MenuItem>
+                <MenuItem value={40}>Human Resource</MenuItem>
+                <MenuItem value={50}>Finance Assistant</MenuItem>
+              </Select>
+            </FormControl>
+
             {/* Enter your password */}
 
             <Typography className={classes.heading}>Password</Typography>
-
             <TextField
               id="outlined-basic"
               label="Enter your password"
