@@ -7,9 +7,9 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import "../../assets/css/Login.css";
+import "../../../assets/css/Login.css";
 import { Link, Redirect } from "react-router-dom";
-import { loginUser } from "../../store/actions/authActions";
+import { loginUser } from "../../../store/actions/authActions";
 
 export default function Login() {
   // Here we are instantiating our dispatch action

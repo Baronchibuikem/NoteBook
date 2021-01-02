@@ -7,16 +7,16 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
-import "../../assets/css/Login.css";
+import "../../../assets/css/Login.css";
 import { Link, Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { registerUser } from "../../store/actions/authActions";
+import { registerUser } from "../../../store/actions/authActions";
 import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -50,9 +50,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Register() {
   const classes = useStyles();
-  const [expanded, setExpanded] = useState(false);  
-  const [team, setTeam] = useState('');
-  const [subTeam, setSubTeam] = useState("")
+  const [expanded, setExpanded] = useState(false);
+  const [team, setTeam] = useState("");
+  const [subTeam, setSubTeam] = useState("");
 
   const handleTeamChange = (event) => {
     setTeam(event.target.value);
@@ -126,7 +126,6 @@ export default function Register() {
               )}
             </h6>
 
-            
             {/* Enter your last name */}
 
             <Typography className={classes.heading}>Last Name</Typography>
@@ -164,15 +163,15 @@ export default function Register() {
               )}
             </h6>
 
-                {/* Department Role */}
+            {/* Department Role */}
             <FormControl variant="outlined" className={classes.root}>
               <InputLabel id="">Team</InputLabel>
               <Select
                 value={team}
                 onChange={handleTeamChange}
                 label="Team"
-                inputRef={register({required: true})}
-                name= "Team"                
+                inputRef={register({ required: true })}
+                name="Team"
               >
                 <MenuItem value={5}>IT and Design</MenuItem>
                 <MenuItem value={10}>Human Resoure</MenuItem>
@@ -185,14 +184,15 @@ export default function Register() {
 
             {/* Department unit */}
             <FormControl variant="outlined" className={classes.root}>
-              <InputLabel id="demo-simple-select-outlined-label">Department Name</InputLabel>
+              <InputLabel id="demo-simple-select-outlined-label">
+                Department Name
+              </InputLabel>
               <Select
                 labelId="demo-simple-select-outlined-label"
                 id="demo-simple-select-outlined"
                 value={subTeam}
                 onChange={handleSubTeamChange}
                 label="Department Name"
-                
               >
                 <MenuItem value={5}>Frontend Developer</MenuItem>
                 <MenuItem value={10}>Backend Developer</MenuItem>

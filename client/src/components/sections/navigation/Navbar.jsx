@@ -8,12 +8,12 @@ import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
-import "../../assets/css/Navbar.css";
+import "../../../assets/css/Navbar.css";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser } from "../../store/actions/authActions";
+import { logoutUser } from "../../../store/actions/authActions";
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -73,7 +73,7 @@ export default function Navbar() {
           <Link to="/" className="text-light pollhover text-decoration-none">
             <ListItem button>
               <ListItemIcon></ListItemIcon>
-              <ListItemText>Home</ListItemText>
+              <ListItemText>Dashoard</ListItemText>
             </ListItem>
           </Link>
           <hr className="bg-light" />
@@ -93,7 +93,17 @@ export default function Navbar() {
           >
             <ListItem button>
               <ListItemIcon></ListItemIcon>
-              <ListItemText>Posts Feed</ListItemText>
+              <ListItemText>View Staff</ListItemText>
+            </ListItem>
+          </Link>
+          <hr className="bg-light" />
+          <Link
+            to="/posts"
+            className="text-light pollhover text-decoration-none"
+          >
+            <ListItem button>
+              <ListItemIcon></ListItemIcon>
+              <ListItemText>Company Policy</ListItemText>
             </ListItem>
           </Link>
           <hr className="bg-light" />
@@ -156,7 +166,8 @@ export default function Navbar() {
           </React.Fragment>
         ))}
         <Typography variant="h6" className="mr-auto ml-3 content-size">
-          Hi {params.user.name} {""} welcome to BaronTech office management application
+          Hi {params.user.name} {""} welcome to BaronTech office management
+          application
         </Typography>
       </Toolbar>
     </AppBar>

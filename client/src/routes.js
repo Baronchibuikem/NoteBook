@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Login from "./components/authentication/Login";
-import register from "./components/authentication/Registration";
-import PrivateRoute from "./components/common_pages/PrivateRoute";
+import Login from "./components/sections/authentication/Login";
+import register from "./components/sections/authentication/Registration";
+import PrivateRoute from "./components/sections/common_pages/PrivateRoute";
 const BaseRouter = () => (
   <Switch>
     <Route exact path="/login" component={Login} />

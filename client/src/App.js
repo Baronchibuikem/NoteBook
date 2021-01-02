@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import BaseRouter from "./routes";
-import Navbar from "./components/navigation/Navbar";
+import Navbar from "./components/sections/navigation/Navbar";
 
 const App = () => {
   return (
