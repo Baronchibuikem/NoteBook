@@ -6,26 +6,22 @@ const {
     GraphQLID,
     GraphQLInt,
     GraphQLList,
-    GraphQLNonNull 
-
+    GraphQLNonNull,
+    GraphQLBoolean
 } = graphql;
+
+// import models
 const User = require('../models/UserModel')
 
-
-const TestType = new GraphQLObjectType({
-    name: "Info",
-    fields: () => ({
-        name: {type: GraphQLString}
-    })
-})
 
 const UserType = new GraphQLObjectType({
     name: "User",
     fields: () => ({
         id : {type: GraphQLID},
-        lastName: {type: GraphQLString}
+        lastName: {type: GraphQLString},
+        email: {type: GraphQLString},
     })
 })
 
 
-module.exports = {TestType, UserType}
+module.exports = {UserType}

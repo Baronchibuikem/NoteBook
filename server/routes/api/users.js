@@ -28,19 +28,12 @@ router.post("/register", (req, res) => {
       errors.email = "Email already exists";
       return res.status(400).json(errors);
     } else {
-      const Role = {}
-      if(req.body.roleGroup){
-        Role.roleGroup = req.body.roleGroup
-      }
-      if(req.body.roleName){
-        Role.roleName = req.body.roleName
-      }
+     
       const newUser = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,        
         password: req.body.password,
-        role: Role
 
       });
 

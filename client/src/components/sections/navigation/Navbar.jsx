@@ -166,8 +166,7 @@ export default function Navbar() {
           </React.Fragment>
         ))}
         <Typography variant="h6" className="mr-auto ml-3 content-size">
-          Hi {params.user.name} {""} welcome to BaronTech office management
-          application
+          Hi {params.user.name} {""} welcome to your daily DraftIt application
         </Typography>
       </Toolbar>
     </AppBar>

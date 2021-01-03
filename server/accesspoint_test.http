@@ -28,11 +28,9 @@ Content-Type: application/json
 {
   "firstName": "Priye",
   "lastName": "Obaremi",
-  "email": "priyeobaremi@gmail.com",
+  "email": "priyeobi@gmail.com",
   "password": "admin12345",
   "password2": "admin12345",
-  "roleGroup": "Human Resource",
-  "roleName": "Designer"  
 }
 
 ###
