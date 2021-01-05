@@ -16,8 +16,6 @@ const swaggerDocument = require('./swagger.json');
 app.use(passport.initialize());
 // Passport Config
 require("./config/passport")(passport);
-// import routes
-const users = require("./routes/api/users");
 
 // import database
 const connectDB = require("./db/connection");
@@ -40,6 +38,8 @@ app.use(cors());
 connectDB();
 
 
+// import routes
+const users = require("./routes/api/users");
 // Api Routes
 app.use("/api/users", users);
 

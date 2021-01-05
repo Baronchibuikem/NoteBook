@@ -3,7 +3,7 @@ POST http://localhost:5000/api/users/login
 content-type: application/json
 
 {
-    "email": "priyeobaremi@gmail.com",
+    "email": "priyeobi@gmail.com",
     "password": "admin12345"
 }
 
@@ -30,7 +30,7 @@ Content-Type: application/json
   "lastName": "Obaremi",
   "email": "priyeobi@gmail.com",
   "password": "admin12345",
-  "password2": "admin12345",
+  "password2": "admin12345"
 }
 
 ###
