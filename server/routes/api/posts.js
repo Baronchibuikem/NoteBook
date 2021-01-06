@@ -17,8 +17,7 @@ router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log(req.query.user);
-    Post.find()
+    Post.find({})
       .sort({ date: 1 })
       //   .populate("user", "name")
       .populate({

@@ -73,7 +73,7 @@ export default function Navbar() {
           <Link to="/" className="text-light pollhover text-decoration-none">
             <ListItem button>
               <ListItemIcon></ListItemIcon>
-              <ListItemText>Dashoard</ListItemText>
+              <ListItemText>My Notes</ListItemText>
             </ListItem>
           </Link>
           <hr className="bg-light" />
@@ -83,7 +83,7 @@ export default function Navbar() {
           >
             <ListItem button>
               <ListItemIcon></ListItemIcon>
-              <ListItemText>Profile</ListItemText>
+              <ListItemText>Add new notes</ListItemText>
             </ListItem>
           </Link>
           <hr className="bg-light" />
@@ -93,7 +93,7 @@ export default function Navbar() {
           >
             <ListItem button>
               <ListItemIcon></ListItemIcon>
-              <ListItemText>View Staff</ListItemText>
+              <ListItemText>Note Categories</ListItemText>
             </ListItem>
           </Link>
           <hr className="bg-light" />
@@ -103,7 +103,7 @@ export default function Navbar() {
           >
             <ListItem button>
               <ListItemIcon></ListItemIcon>
-              <ListItemText>Company Policy</ListItemText>
+              <ListItemText>Trash</ListItemText>
             </ListItem>
           </Link>
           <hr className="bg-light" />

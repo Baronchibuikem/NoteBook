@@ -3,7 +3,7 @@ POST http://localhost:5000/api/users/login
 content-type: application/json
 
 {
-    "email": "priyeobi@gmail.com",
+    "email": "warri2@gmail.com",
     "password": "admin12345"
 }
 
@@ -48,7 +48,7 @@ Content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ3ZGM4ZjRlMjlkOTcwZjI3ZjU0YiIsImVtYWlsIjoicHJpeWVvYmlAZ21haWwuY29tIiwiaWF0IjoxNjA5OTI3MjMyLCJleHAiOjE2MDk5NDg4MzJ9.DtQlZDo2ffLM6uaI154rvJnq90rW2hlhEqAG06Lr5RY
 
 {
-    "name": "Ofice matters"
+    "name": "Learning Phase"
 }
 
 
@@ -57,19 +57,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ3ZGM4Z
 # For adding a Post 
 POST http://localhost:5000/api/posts
 Content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ3ZGM4ZjRlMjlkOTcwZjI3ZjU0YiIsImVtYWlsIjoicHJpeWVvYmlAZ21haWwuY29tIiwiaWF0IjoxNjA5OTI3MjMyLCJleHAiOjE2MDk5NDg4MzJ9.DtQlZDo2ffLM6uaI154rvJnq90rW2hlhEqAG06Lr5RY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ4MzFhZjEyZmQ3YTAxMjU0ZjkzMiIsImVtYWlsIjoid2FycmkyQGdtYWlsLmNvbSIsImlhdCI6MTYwOTk0NDU2MywiZXhwIjoxNjA5OTY2MTYzfQ.TM9dEDbl6FdNO5N_mtMJLGVn6q3fIbBgolB3SO49RTQ
 
 {
-    "name": "Having my Appraisal",
-    "text": "In the age of layered architecture and microservices",
-    "category": "5ff58aa0f2f7d803f48a5a96",
-    "draft": false
+    "name": "Learning Node",
+    "text": "wow",
+    "category": "5ff5cdb838835962e23ab00e",
+    "draft": true
     
 }
 
 ###
 
 # For listening all post
-POST http://localhost:5000/api/posts
+GET http://localhost:5000/api/posts
 Content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ3ZGM4ZjRlMjlkOTcwZjI3ZjU0YiIsImVtYWlsIjoicHJpeWVvYmlAZ21haWwuY29tIiwiaWF0IjoxNjA5OTI3MjMyLCJleHAiOjE2MDk5NDg4MzJ9.DtQlZDo2ffLM6uaI154rvJnq90rW2hlhEqAG06Lr5RY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ4MzFhZjEyZmQ3YTAxMjU0ZjkzMiIsImVtYWlsIjoid2FycmkyQGdtYWlsLmNvbSIsImlhdCI6MTYwOTk0NDU2MywiZXhwIjoxNjA5OTY2MTYzfQ.TM9dEDbl6FdNO5N_mtMJLGVn6q3fIbBgolB3SO49RTQ
