@@ -40,3 +40,36 @@ DELETE http://localhost:5000/api/users/5faa703494ecb24484934df3
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOWU3ZDhiMzE1YmI5MGY4NDI4OTNhZSIsImVtYWlsIjoicGFzdG9yQGdtYWlsLmNvbSIsImlhdCI6MTYwNTAwNjEwMCwiZXhwIjoxNjA1MDI3NzAwfQ.4PKxUP_Yzhb8fdiGPTcsPvuqOaaUyoWae8JWKlqs-4E
 
+###
+
+# For adding a Category 
+POST http://localhost:5000/api/posts/category
+Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ3ZGM4ZjRlMjlkOTcwZjI3ZjU0YiIsImVtYWlsIjoicHJpeWVvYmlAZ21haWwuY29tIiwiaWF0IjoxNjA5OTI3MjMyLCJleHAiOjE2MDk5NDg4MzJ9.DtQlZDo2ffLM6uaI154rvJnq90rW2hlhEqAG06Lr5RY
+
+{
+    "name": "Ofice matters"
+}
+
+
+###
+
+# For adding a Post 
+POST http://localhost:5000/api/posts
+Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ3ZGM4ZjRlMjlkOTcwZjI3ZjU0YiIsImVtYWlsIjoicHJpeWVvYmlAZ21haWwuY29tIiwiaWF0IjoxNjA5OTI3MjMyLCJleHAiOjE2MDk5NDg4MzJ9.DtQlZDo2ffLM6uaI154rvJnq90rW2hlhEqAG06Lr5RY
+
+{
+    "name": "Having my Appraisal",
+    "text": "In the age of layered architecture and microservices",
+    "category": "5ff58aa0f2f7d803f48a5a96",
+    "draft": false
+    
+}
+
+###
+
+# For listening all post
+POST http://localhost:5000/api/posts
+Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ3ZGM4ZjRlMjlkOTcwZjI3ZjU0YiIsImVtYWlsIjoicHJpeWVvYmlAZ21haWwuY29tIiwiaWF0IjoxNjA5OTI3MjMyLCJleHAiOjE2MDk5NDg4MzJ9.DtQlZDo2ffLM6uaI154rvJnq90rW2hlhEqAG06Lr5RY
