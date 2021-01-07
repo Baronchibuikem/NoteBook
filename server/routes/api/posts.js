@@ -15,7 +15,7 @@ const category = require("../../models/Category");
 
 router.get(
   "/",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Post.find({})
       .sort({ date: 1 })

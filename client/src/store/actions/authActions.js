@@ -1,6 +1,6 @@
 import setAuthToken from "../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
-import { callApi } from "../api_calls";
+import { route } from "../api_calls";
 import axios from "axios";
 import { GET_ERRORS, SET_CURRENT_USER, SET_USER_TOKEN } from "./action_types";
 
@@ -8,16 +8,12 @@ import { GET_ERRORS, SET_CURRENT_USER, SET_USER_TOKEN } from "./action_types";
 export const registerUser = (params) => async (dispatch) => {
   const { name, email, password, password2 } = params.data;
   try {
-    const response = await callApi(
-      "/api/users/register",
-      {
-        name,
-        email,
-        password,
-        password2,
-      },
-      "POST"
-    );
+    const response = await route.post("/api/users/register", {
+      name,
+      email,
+      password,
+      password2,
+    });
     if (response) {
       dispatch({ type: SET_CURRENT_USER, payload: response.data });
     }
@@ -34,7 +30,7 @@ export const loginUser = (userData) => {
   return async (dispatch) => {
     const { email, password } = userData;
     try {
-      const res = await axios.post("/api/users/login", { email, password });
+      const res = await route.post("/api/users/login", { email, password });
       if (res.status === 200) {
         // Save to localStorage
         const { token } = res.data;

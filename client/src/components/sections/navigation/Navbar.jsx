@@ -7,7 +7,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../../../assets/css/Navbar.css";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar() {
   const classes = useStyles();
+  const history = useHistory();
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -46,6 +47,7 @@ export default function Navbar() {
   const clickLogout = (e) => {
     // used to dispatch an action that logs a user out
     dispatch(logoutUser());
+    history.push("/login");
   };
 
   const toggleDrawer = (anchor, open) => (event) => {

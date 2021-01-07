@@ -1,6 +1,6 @@
 import axios from "axios";
 import setAuthToken from "../../utils/setAuthToken";
-
+import { route } from "../api_calls";
 import {
   ADD_POST,
   GET_ERRORS,
@@ -35,10 +35,18 @@ export const addPost = (postData) => (dispatch, getState) => {
 };
 
 // Get Posts
-export const getPosts = () => async (dispatch) => {
+export const getPosts = () => async (dispatch, getState) => {
+  const token = getState().authentication.token;
+  console.log(token, "token");
+  let config = {
+    headers: {
+      Authorization: `Token ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
   dispatch(setPostLoading());
   dispatch(clearErrors());
-  const res = await axios.get("/api/posts");
+  const res = await route.get("/api/posts", config);
   console.log(res.data, "Get Post");
   try {
     dispatch({
