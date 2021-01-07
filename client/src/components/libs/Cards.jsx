@@ -31,6 +31,10 @@ export default function SimpleCard(props) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
+  // const displaySinglePost = () => {
+
+  // }
+
   return (
     <Card className={classes.root && classes.pos}>
       <CardHeader
@@ -57,7 +61,13 @@ export default function SimpleCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" className="ml-3">
+        <Button
+          size="small"
+          className="ml-3"
+          onClick={() => {
+            props.click(props.id);
+          }}
+        >
           Learn More
         </Button>
       </CardActions>

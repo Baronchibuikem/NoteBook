@@ -37,18 +37,15 @@ export const addPost = (postData) => (dispatch, getState) => {
 // Get Posts
 export const getPosts = () => async (dispatch, getState) => {
   const token = getState().authentication.token;
-  console.log(token, "token");
   let config = {
     headers: {
       Authorization: token,
       "Content-Type": "application/json",
     },
   };
-  console.log(config);
   dispatch(setPostLoading());
   dispatch(clearErrors());
   const res = await route.get("/api/posts", config);
-  console.log(res.data, "Get Post");
   try {
     dispatch({
       type: GET_POSTS,
@@ -67,7 +64,6 @@ export const getPost = (id) => async (dispatch) => {
   dispatch(setPostLoading());
   try {
     const res = await axios.get(`/api/posts/${id}`);
-    console.log(res.data, "get single post");
     dispatch({
       type: GET_POST,
       payload: res.data,

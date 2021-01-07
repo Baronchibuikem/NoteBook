@@ -27,7 +27,7 @@ router.get(
         select: { name: 1 },
       })
       .populate({
-        path: "user",
+        path: "owner",
         select: { firstName: 1, lastName: 1 },
       })
       .then((posts) => {
@@ -56,7 +56,7 @@ router.post(
     const newPost = new Post({
       text: req.body.text,
       name: req.body.name,
-      user: req.user.id,
+      owner: req.user.id,
       category: req.body.category,
     });
     console.log(newPost);
@@ -76,4 +76,29 @@ router.post(
   }
 );
 
+// @route   GET api/posts/:id
+// @desc    Get single post post
+// @access  Public
+router.get("/:id", (req, res) => {
+  Post.findById(req.params.id)
+    // for getting the name of the user from the list of comments posted
+    .populate({
+      path: "category",
+      select: { name: 1 },
+    })
+    .populate({
+      path: "owner",
+      select: { firstName: 1, lastName: 1 },
+    })
+    .then((post) => {
+      if (post) {
+        res.json(post);
+      } else {
+        res.status(404).json({ nopostfound: "No post found with that ID" });
+      }
+    })
+    .catch((err) =>
+      res.status(404).json({ PostNotFound: "Couldn't get the requested post" })
+    );
+});
 module.exports = router;
