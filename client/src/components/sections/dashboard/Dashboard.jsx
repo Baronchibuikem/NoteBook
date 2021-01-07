@@ -32,7 +32,7 @@ function Dashboard() {
           className="col-md-4 container"
           style={{ overflowY: "scroll", height: "calc(100vh - 127px)" }}
         >
-          <h4>This will be used to display the list of post</h4>
+          <h4 className="text-center mb-2">My notes</h4>
           {params.allpost.map((post) => (
             <div key={post._id}>
               <Card

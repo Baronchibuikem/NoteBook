@@ -31,9 +31,10 @@ export default function SimpleCard(props) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
-  // const displaySinglePost = () => {
-
-  // }
+  // For truncating the number of text to 30
+  const truncate = (str) => {
+    return str.length > 100 ? str.substring(0, 100) + "..." : str;
+  };
 
   return (
     <Card className={classes.root && classes.pos}>
@@ -57,7 +58,7 @@ export default function SimpleCard(props) {
           color="textSecondary"
           gutterBottom
         >
-          {props.text}
+          {truncate(props.text)}
         </Typography>
       </CardContent>
       <CardActions>
