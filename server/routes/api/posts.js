@@ -15,9 +15,11 @@ const category = require("../../models/Category");
 
 router.get(
   "/",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Post.find({})
+    const userId = req.user._id;
+    console.log(req.user._id);
+    Post.find({ user: userId })
       .sort({ date: 1 })
       //   .populate("user", "name")
       .populate({

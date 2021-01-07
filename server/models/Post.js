@@ -4,7 +4,7 @@ const validator = require("validator");
 
 // Create user Schema
 const PostSchema = new Schema({
-  user: {
+  owner: {
     type: Schema.Types.ObjectId,
     ref: "user",
   },
@@ -27,5 +27,5 @@ const PostSchema = new Schema({
   },
 });
 
-const post = mongoose.model("post", PostSchema);
+const post = mongoose.model("posts", PostSchema);
 module.exports = post;

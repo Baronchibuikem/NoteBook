@@ -57,11 +57,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ3ZGM4Z
 # For adding a Post 
 POST http://localhost:5000/api/posts
 Content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ4MzFhZjEyZmQ3YTAxMjU0ZjkzMiIsImVtYWlsIjoid2FycmkyQGdtYWlsLmNvbSIsImlhdCI6MTYwOTk0NDU2MywiZXhwIjoxNjA5OTY2MTYzfQ.TM9dEDbl6FdNO5N_mtMJLGVn6q3fIbBgolB3SO49RTQ
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ4MzFhZjEyZmQ3YTAxMjU0ZjkzMiIsImVtYWlsIjoid2FycmkyQGdtYWlsLmNvbSIsImlhdCI6MTYxMDAxMTM0OSwiZXhwIjoxNjEwMDMyOTQ5fQ.tfJXiijwr5tYktepSdIyVmHHPw5m7sA14DMHeFmdcL8
 {
     "name": "Learning Node",
-    "text": "wow",
+    "text": "HealthThink provides information, analytics solutions and digital tools in the areas of strategic research management, R&D performance, clinical decision support, and professional education.",
     "category": "5ff5cdb838835962e23ab00e",
     "draft": true
     
@@ -72,4 +71,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ4MzFhZ
 # For listening all post
 GET http://localhost:5000/api/posts
 Content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ4MzFhZjEyZmQ3YTAxMjU0ZjkzMiIsImVtYWlsIjoid2FycmkyQGdtYWlsLmNvbSIsImlhdCI6MTYwOTk0NDU2MywiZXhwIjoxNjA5OTY2MTYzfQ.TM9dEDbl6FdNO5N_mtMJLGVn6q3fIbBgolB3SO49RTQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ4MzFhZjEyZmQ3YTAxMjU0ZjkzMiIsImVtYWlsIjoid2FycmkyQGdtYWlsLmNvbSIsImlhdCI6MTYxMDAxMTM0OSwiZXhwIjoxNjEwMDMyOTQ5fQ.tfJXiijwr5tYktepSdIyVmHHPw5m7sA14DMHeFmdcL8

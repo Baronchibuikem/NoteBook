@@ -40,10 +40,11 @@ export const getPosts = () => async (dispatch, getState) => {
   console.log(token, "token");
   let config = {
     headers: {
-      Authorization: `Token ${token}`,
+      Authorization: token,
       "Content-Type": "application/json",
     },
   };
+  console.log(config);
   dispatch(setPostLoading());
   dispatch(clearErrors());
   const res = await route.get("/api/posts", config);
