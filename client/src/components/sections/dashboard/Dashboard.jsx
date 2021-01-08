@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts, getPost } from "../../../store/actions/postActions";
 import Card from "../../libs/Cards";
 import SinglePost from "./SinglePost";
+import TextEditor from "./Editor";
 
 function Dashboard() {
+  const [addPost, setAddPost] = useState(false);
+
   const params = useSelector((state) => ({
     allpost: state.postreducer.posts,
     singlepost: state.postreducer.post,
@@ -16,6 +19,7 @@ function Dashboard() {
   }, [dispatch]);
 
   const get_post = (id) => {
+    setAddPost(false);
     dispatch(getPost(id));
     // singlePostPage();
     console.log("button for single post clicked" + id);
@@ -46,13 +50,16 @@ function Dashboard() {
           ))}
         </div>
         <div className="col-md-8">
-          {params.singlepost !== null ? (
+          <button onClick={() => setAddPost(!addPost)}>Create Note</button>
+          {params.singlepost !== null && !addPost ? (
             <SinglePost
               name={params.singlepost.name}
               text={params.singlepost.text}
               category={params.singlepost.category.name}
             />
-          ) : null}
+          ) : (
+            <TextEditor />
+          )}
         </div>
       </div>
     </div>

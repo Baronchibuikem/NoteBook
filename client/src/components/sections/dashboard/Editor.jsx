@@ -40,12 +40,13 @@ const TextEditor = ({ onSubmit }) => {
   };
 
   return (
-    <div className="mt-5 pt-5">
+    <div>
       <form onSubmit={submit}>
         <input
           type="text"
           name="name"
-          className="form-control"
+          placeholder="Enter title here"
+          className="form-control my-3 p-4"
           //   value={addName}
           onChange={handleNameChange}
         />
