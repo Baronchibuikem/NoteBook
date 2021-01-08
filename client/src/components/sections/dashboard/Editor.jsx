@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import ReactHtmlParser from "react-html-parser";
 import "../../../assets/css/Dashboard.css";
-import { useForm } from "react-hook-form";
+import { addPost } from "../../../store/actions/postActions";
 
 // import the config here
 import { config } from "../../../editorConfig";
@@ -17,8 +18,7 @@ const TextEditor = (props) => {
   // and then plug it in here
   //   ClassicEditor.defaultConfig = config;
 
-  // hooks form
-  const { register, handleSubmit, errors } = useForm();
+  const dispatch = useDispatch();
 
   const submit = (e) => {
     e.preventDefault();
@@ -27,17 +27,16 @@ const TextEditor = (props) => {
       text: addData,
     };
     console.log(data);
+    dispatch(addPost(data));
   };
 
   const handleChange = (e, editor) => {
     const data = editor.getData();
     setAddData(data);
-    console.log(data);
   };
 
   const handleNameChange = (e) => {
     setAddName(e.target.value);
-    console.log(e.target.value);
   };
 
   return (
@@ -59,7 +58,7 @@ const TextEditor = (props) => {
             />
           </div>
         ) : (
-          <div className="ck-editor__editable ">
+          <div className="ck-editor__editable mt-4">
             {addedData ? ReactHtmlParser(addData) : null}
           </div>
         )}
@@ -71,13 +70,13 @@ const TextEditor = (props) => {
             data-target=".bd-example-modal-lg"
             type="button"
           >
-            {addedData ? "Hide Data" : "Show Data"}
+            {addedData ? "View form" : "Preview"}
           </button>
           <button
             className="form-control my-3 w-25 bg-dark text-light"
             type="submit"
           >
-            submit
+            Submit
           </button>
         </div>
       </form>

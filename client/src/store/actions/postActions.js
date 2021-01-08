@@ -13,25 +13,36 @@ import {
 } from "./action_types";
 
 // Add Post
-export const addPost = (postData) => (dispatch, getState) => {
+export const addPost = (postData) => async (dispatch, getState) => {
+  console.log(postData, "post dada");
   const token = getState().authentication.token;
-  const userToken = (axios.defaults.headers.common["Authorization"] = token);
+  let config = {
+    headers: {
+      Authorization: token,
+      "Content-Type": "application/json",
+    },
+  };
   dispatch(setPostLoading());
   dispatch(clearErrors());
-  axios
-    .post("/api/posts", { text: postData }, userToken)
-    .then((res) =>
-      dispatch({
-        type: ADD_POST,
-        payload: res.data,
-      })
-    )
-    .catch((err) =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data,
-      })
+
+  try {
+    const res = await route.post(
+      "/api/posts",
+      { text: postData.text, name: postData.name },
+      config
     );
+    console.log(res.data);
+    dispatch({
+      type: ADD_POST,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data,
+    });
+  }
 };
 
 // Get Posts

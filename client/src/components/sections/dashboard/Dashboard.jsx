@@ -8,12 +8,15 @@ import TextEditor from "./Editor";
 function Dashboard() {
   const [addPost, setAddPost] = useState(false);
 
+  // for fetching state
   const params = useSelector((state) => ({
     allpost: state.postreducer.posts,
     singlepost: state.postreducer.post,
   }));
+
   const dispatch = useDispatch();
 
+  // for displaying post on render
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
@@ -22,10 +25,6 @@ function Dashboard() {
     setAddPost(false);
     dispatch(getPost(id));
   };
-
-  // const singlePostPage = params.singlepost ? (
-  //   <SinglePost name={params.singlepost.name} />
-  // ) : null;
 
   return (
     <div className="container-fluid mt-5 pt-5">
@@ -47,7 +46,10 @@ function Dashboard() {
             </div>
           ))}
         </div>
-        <div className="col-md-8">
+        <div
+          className="col-md-8"
+          style={{ overflowY: "scroll", height: "calc(100vh - 127px)" }}
+        >
           <button onClick={() => setAddPost(!addPost)}>Create Note</button>
           {params.singlepost !== null && !addPost ? (
             <SinglePost
