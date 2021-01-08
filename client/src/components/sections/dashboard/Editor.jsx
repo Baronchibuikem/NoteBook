@@ -1,35 +1,72 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ReactHtmlParser from "react-html-parser";
+import "../../../assets/css/Dashboard.css";
+import { useForm } from "react-hook-form";
 
 // import the config here
 import { config } from "../../../editorConfig";
 
 const TextEditor = ({ onSubmit }) => {
-  const [body, setBody] = useState("");
+  const [addData, setAddData] = useState("");
+  const [addName, setAddName] = useState("");
+  const [addedData, setAddedData] = useState(0);
 
   // and then plug it in here
   //   ClassicEditor.defaultConfig = config;
 
-  const handleSubmit = (e) => {
+  // hooks form
+  const { register, handleSubmit, errors } = useForm();
+
+  const submit = (e) => {
     e.preventDefault();
-    onSubmit({ body });
+    const data = {
+      name: addName,
+      text: addData,
+    };
+    console.log(data);
+  };
+
+  const handleChange = (e, editor) => {
+    const data = editor.getData();
+    setAddData(data);
+    console.log(data);
+  };
+
+  const handleNameChange = (e) => {
+    setAddName(e.target.value);
+    console.log(e.target.value);
   };
 
   return (
     <div className="mt-5 pt-5">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={submit}>
+        <input
+          type="text"
+          name="name"
+          className="form-control"
+          //   value={addName}
+          onChange={handleNameChange}
+        />
         <CKEditor
           editor={ClassicEditor}
-          onChange={(event, editor) => {
-            // const data = editor.getData();
-            const data = "<p>Hello from CKEditor 5!</p>";
-            setBody(data);
-          }}
+          data={addData}
+          onChange={handleChange}
         />
-        <button type="submit">Submit</button>
-        <CKEditor />?
+        <div className="d-flex justify-content-around-">
+          <button
+            className="form-control my-3 w-25"
+            onClick={() => setAddedData(!addedData)}
+          >
+            {addedData ? "Hide Data" : "Show Data"}
+          </button>
+          <button className="form-control my-3 w-25" type="submit">
+            submit
+          </button>
+        </div>
       </form>
+      {addedData ? ReactHtmlParser(addData) : null}
     </div>
   );
 };
