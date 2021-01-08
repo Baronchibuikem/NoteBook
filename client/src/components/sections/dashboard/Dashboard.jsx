@@ -21,8 +21,6 @@ function Dashboard() {
   const get_post = (id) => {
     setAddPost(false);
     dispatch(getPost(id));
-    // singlePostPage();
-    console.log("button for single post clicked" + id);
   };
 
   const singlePostPage = params.singlepost ? (

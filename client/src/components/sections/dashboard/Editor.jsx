@@ -55,18 +55,45 @@ const TextEditor = ({ onSubmit }) => {
           data={addData}
           onChange={handleChange}
         />
-        <div className="d-flex justify-content-around-">
+        <div className="d-flex justify-content-between">
           <button
-            className="form-control my-3 w-25"
+            className="form-control my-3 w-25 bg-dark text-light"
             onClick={() => setAddedData(!addedData)}
+            data-toggle="modal"
+            data-target=".bd-example-modal-lg"
+            type="button"
           >
             {addedData ? "Hide Data" : "Show Data"}
           </button>
-          <button className="form-control my-3 w-25" type="submit">
+          <button
+            className="form-control my-3 w-25 bg-dark text-light"
+            type="submit"
+          >
             submit
           </button>
         </div>
       </form>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target=".bd-example-modal-lg"
+      >
+        Large modal
+      </button>
+
+      <div
+        class="modal fade bd-example-modal-lg"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="myLargeModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">...</div>
+        </div>
+      </div>
       {addedData ? ReactHtmlParser(addData) : null}
     </div>
   );
