@@ -8,10 +8,11 @@ import { useForm } from "react-hook-form";
 // import the config here
 import { config } from "../../../editorConfig";
 
-const TextEditor = ({ onSubmit }) => {
+const TextEditor = (props) => {
   const [addData, setAddData] = useState("");
   const [addName, setAddName] = useState("");
   const [addedData, setAddedData] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
   // and then plug it in here
   //   ClassicEditor.defaultConfig = config;
@@ -42,19 +43,26 @@ const TextEditor = ({ onSubmit }) => {
   return (
     <div>
       <form onSubmit={submit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Enter title here"
-          className="form-control my-3 p-4"
-          //   value={addName}
-          onChange={handleNameChange}
-        />
-        <CKEditor
-          editor={ClassicEditor}
-          data={addData}
-          onChange={handleChange}
-        />
+        {!addedData ? (
+          <div>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter title here"
+              className="form-control my-3 p-4"
+              onChange={handleNameChange}
+            />
+            <CKEditor
+              editor={ClassicEditor}
+              data={addData}
+              onChange={handleChange}
+            />
+          </div>
+        ) : (
+          <div className="ck-editor__editable ">
+            {addedData ? ReactHtmlParser(addData) : null}
+          </div>
+        )}
         <div className="d-flex justify-content-between">
           <button
             className="form-control my-3 w-25 bg-dark text-light"
@@ -73,28 +81,6 @@ const TextEditor = ({ onSubmit }) => {
           </button>
         </div>
       </form>
-
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-toggle="modal"
-        data-target=".bd-example-modal-lg"
-      >
-        Large modal
-      </button>
-
-      <div
-        class="modal fade bd-example-modal-lg"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="myLargeModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">...</div>
-        </div>
-      </div>
-      {addedData ? ReactHtmlParser(addData) : null}
     </div>
   );
 };

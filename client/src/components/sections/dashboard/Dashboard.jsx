@@ -23,9 +23,9 @@ function Dashboard() {
     dispatch(getPost(id));
   };
 
-  const singlePostPage = params.singlepost ? (
-    <SinglePost name={params.singlepost.name} />
-  ) : null;
+  // const singlePostPage = params.singlepost ? (
+  //   <SinglePost name={params.singlepost.name} />
+  // ) : null;
 
   return (
     <div className="container-fluid mt-5 pt-5">
