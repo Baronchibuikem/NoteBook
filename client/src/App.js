@@ -9,10 +9,7 @@ const App = () => {
       <Router>
         <Navbar />
         <div className="">
-          <div
-            className="min-vh-100 mx-auto"
-            style={{ backgroundColor: "#f6f9fa" }}
-          >
+          <div style={{ backgroundColor: "#f6f9fa" }}>
             <BaseRouter />
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import ReactHtmlParser from "react-html-parser";
@@ -7,24 +7,32 @@ import "../../../assets/css/Dashboard.css";
 import { addPost } from "../../../store/actions/postActions";
 
 // import the config here
-import { config } from "../../../editorConfig";
+// import { config } from "../../../editorConfig";
 
 const TextEditor = (props) => {
-  const [addData, setAddData] = useState("");
+  const [addText, setAddText] = useState("");
   const [addName, setAddName] = useState("");
+  const [addCategory, setAddCategory] = useState("");
   const [addedData, setAddedData] = useState(0);
-  const [showModal, setShowModal] = useState(false);
 
   // and then plug it in here
   //   ClassicEditor.defaultConfig = config;
 
   const dispatch = useDispatch();
 
+  // for fetching state
+  const params = useSelector((state) => ({
+    allcategory: state.postreducer.categories,
+    userId: state.authentication.user.id,
+  }));
+
   const submit = (e) => {
     e.preventDefault();
     const data = {
       name: addName,
-      text: addData,
+      text: addText,
+      category: addCategory,
+      owner: params.userId,
     };
     console.log(data);
     dispatch(addPost(data));
@@ -32,11 +40,15 @@ const TextEditor = (props) => {
 
   const handleChange = (e, editor) => {
     const data = editor.getData();
-    setAddData(data);
+    setAddText(data);
   };
 
   const handleNameChange = (e) => {
     setAddName(e.target.value);
+  };
+
+  const handleCategoryChange = (e) => {
+    setAddCategory(e.target.value);
   };
 
   return (
@@ -44,6 +56,15 @@ const TextEditor = (props) => {
       <form onSubmit={submit}>
         {!addedData ? (
           <div>
+            <select
+              id=""
+              className="form-control"
+              onChange={handleCategoryChange}
+            >
+              {params.allcategory.map((category) => (
+                <option key={category._id}>{category.name}</option>
+              ))}
+            </select>
             <input
               type="text"
               name="name"
@@ -53,13 +74,13 @@ const TextEditor = (props) => {
             />
             <CKEditor
               editor={ClassicEditor}
-              data={addData}
+              data={addText}
               onChange={handleChange}
             />
           </div>
         ) : (
           <div className="ck-editor__editable mt-4">
-            {addedData ? ReactHtmlParser(addData) : null}
+            {addedData ? ReactHtmlParser(addText) : null}
           </div>
         )}
         <div className="d-flex justify-content-between">

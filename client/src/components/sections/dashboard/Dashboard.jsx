@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getPosts, getPost } from "../../../store/actions/postActions";
+import {
+  getPosts,
+  getPost,
+  getCategories,
+} from "../../../store/actions/postActions";
 import Card from "../../libs/Cards";
 import SinglePost from "./SinglePost";
 import TextEditor from "./Editor";
@@ -19,6 +23,7 @@ function Dashboard() {
   // for displaying post on render
   useEffect(() => {
     dispatch(getPosts());
+    dispatch(getCategories());
   }, [dispatch]);
 
   const get_post = (id) => {
@@ -34,6 +39,8 @@ function Dashboard() {
           style={{ overflowY: "scroll", height: "calc(100vh - 127px)" }}
         >
           <h4 className="text-center mb-2">My notes</h4>
+          <button onClick={() => setAddPost(!addPost)}>Create Note</button>
+          <button>Add Category</button>
           {params.allpost.map((post) => (
             <div key={post._id}>
               <Card
@@ -50,7 +57,6 @@ function Dashboard() {
           className="col-md-8"
           style={{ overflowY: "scroll", height: "calc(100vh - 127px)" }}
         >
-          <button onClick={() => setAddPost(!addPost)}>Create Note</button>
           {params.singlepost !== null && !addPost ? (
             <SinglePost
               name={params.singlepost.name}

@@ -1,5 +1,4 @@
 import axios from "axios";
-import setAuthToken from "../../utils/setAuthToken";
 import { route } from "../api_calls";
 import {
   ADD_POST,
@@ -10,6 +9,8 @@ import {
   POST_LOADING,
   DELETE_POST,
   DISABLE_LOADING,
+  GET_CATEGORIES,
+  SERVER_ERRORS,
 } from "./action_types";
 
 // Add Post
@@ -28,7 +29,12 @@ export const addPost = (postData) => async (dispatch, getState) => {
   try {
     const res = await route.post(
       "/api/posts",
-      { text: postData.text, name: postData.name },
+      {
+        text: postData.text,
+        name: postData.name,
+        owner: postData.owner,
+        category: postData.category,
+      },
       config
     );
     console.log(res.data);
@@ -87,6 +93,31 @@ export const getPost = (id) => async (dispatch) => {
   }
 };
 
+// for fetching categories
+export const getCategories = () => async (dispatch, getState) => {
+  const token = getState().authentication.token;
+  let config = {
+    headers: {
+      Authorization: token,
+      "Content-Type": "application/json",
+    },
+  };
+  dispatch(setPostLoading());
+  dispatch(clearErrors());
+  const res = await route.get("/api/posts/category", config);
+  try {
+    dispatch({
+      type: GET_CATEGORIES,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: SERVER_ERRORS,
+      payload: null,
+    });
+  }
+};
+
 // Delete Post
 export const deletePost = (id) => (dispatch) => {
   axios
@@ -111,7 +142,7 @@ export const postLike = (id) => {
     const token = getState().authentication.token;
     const userToken = (axios.defaults.headers.common["Authorization"] = token);
     try {
-      const res = await axios.post(`/api/posts/like/${id}`, userToken);
+      await axios.post(`/api/posts/like/${id}`, userToken);
       dispatch(getPosts());
     } catch (error) {
       dispatch({

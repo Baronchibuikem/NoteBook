@@ -13,12 +13,12 @@ const validateRegisterInput = require("../../validations/register");
 const validateLoginInput = require("../../validations/login");
 const category = require("../../models/Category");
 
+// for getting all the post the current logged in user created
 router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const userId = req.user._id;
-    console.log(req.user._id);
     Post.find({ user: userId })
       .sort({ date: 1 })
       //   .populate("user", "name")
@@ -41,6 +41,7 @@ router.get(
   }
 );
 
+// For creating a post
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
@@ -64,6 +65,7 @@ router.post(
   }
 );
 
+// For creating a category
 router.post(
   "/category",
   passport.authenticate("jwt", { session: false }),
@@ -73,6 +75,26 @@ router.post(
       user: req.user.id,
     });
     newCategory.save().then((category) => res.json(category));
+  }
+);
+
+// For fetching post created by the logged in user
+router.get(
+  "/category",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const userId = req.user._id;
+    console.log(userId);
+    try {
+      response = await Category.find({ user: userId });
+      res.json(response);
+    } catch (error) {
+      res
+        .status(404)
+        .json({
+          PostsNotFound: "Couldn't get all all category from the database",
+        });
+    }
   }
 );
 

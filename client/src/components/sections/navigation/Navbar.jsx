@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
   const classes = useStyles();
   const history = useHistory();
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     top: false,
     left: false,
     bottom: false,
@@ -85,7 +85,7 @@ export default function Navbar() {
           >
             <ListItem button>
               <ListItemIcon></ListItemIcon>
-              <ListItemText>Add new notes</ListItemText>
+              <ListItemText>How to</ListItemText>
             </ListItem>
           </Link>
           <hr className="bg-light" />
@@ -95,7 +95,7 @@ export default function Navbar() {
           >
             <ListItem button>
               <ListItemIcon></ListItemIcon>
-              <ListItemText>Note Categories</ListItemText>
+              <ListItemText>Contact Us</ListItemText>
             </ListItem>
           </Link>
           <hr className="bg-light" />
@@ -105,7 +105,7 @@ export default function Navbar() {
           >
             <ListItem button>
               <ListItemIcon></ListItemIcon>
-              <ListItemText>Trash</ListItemText>
+              <ListItemText>Suggest features</ListItemText>
             </ListItem>
           </Link>
           <hr className="bg-light" />
@@ -168,7 +168,8 @@ export default function Navbar() {
           </React.Fragment>
         ))}
         <Typography variant="h6" className="mr-auto ml-3 content-size">
-          Hi {params.user.name} {""} welcome to your daily DraftIt application
+          Hi {params.user.firstName} {""} {params.user.lastName} {""}welcome to
+          your daily DraftIt application
         </Typography>
       </Toolbar>
     </AppBar>

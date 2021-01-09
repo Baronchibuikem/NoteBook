@@ -5,12 +5,15 @@ import {
   DELETE_POST,
   POST_LOADING,
   DISABLE_LOADING,
+  GET_CATEGORIES,
+  SERVER_ERRORS,
 } from "../actions/action_types";
 
 const initialState = {
   posts: [],
   post: null,
   loading: false,
+  categories: [],
 };
 
 export default function (state = initialState, action) {
@@ -42,6 +45,16 @@ export default function (state = initialState, action) {
         ...state,
         posts: [action.payload, ...state.posts],
         loading: false,
+      };
+    case GET_CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload,
+      };
+    case SERVER_ERRORS:
+      return {
+        ...state,
+        categories: null,
       };
     case DELETE_POST:
       return {

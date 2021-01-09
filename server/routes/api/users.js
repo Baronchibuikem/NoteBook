@@ -11,7 +11,6 @@ const User = require("../../models/UserModel");
 const validateRegisterInput = require("../../validations/register");
 const validateLoginInput = require("../../validations/login");
 
-
 // @route   POST api/users/register
 // @desc    Register user
 // @access  Public
@@ -27,16 +26,15 @@ router.post("/register", (req, res) => {
     if (user) {
       errors.email = "Email already exists";
       return res.status(400).json(errors);
-    } 
-       
+    }
+
     const newUser = new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      email: req.body.email,        
+      email: req.body.email,
       password: req.body.password,
-
     });
-    console.log("......new user loading")
+    console.log("......new user loading");
 
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -48,8 +46,7 @@ router.post("/register", (req, res) => {
           .catch((err) => console.log(err));
       });
     });
-    console.log("new user saved............")
-    
+    console.log("new user saved............");
   });
 });
 
@@ -78,7 +75,13 @@ router.post("/login", (req, res) => {
     bcrypt.compare(password, user.password).then((isMatch) => {
       if (isMatch) {
         // User Matched
-        const payload = { id: user.id, name: user.name, email: user.email }; // Create JWT Payload
+        const payload = {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          admin: user.isAdmin,
+        }; // Create JWT Payload
 
         // Sign Token
         const accessToken = jwt.sign(
@@ -101,60 +104,58 @@ router.post("/login", (req, res) => {
 });
 
 // For getting all user's in the database
-router.get('/', (req, res) => {
-  const errors = {}
+router.get("/", (req, res) => {
+  const errors = {};
   User.find()
-  .then((users) => {
-    if(!users){
-      errors.user_not_found = "User's not found"
-      return res.status(400).json(errors)
-    }
-    res.json(users)
-  })
-  .catch((err) => res.status(404).json({users: "User's not found"}))
-})
+    .then((users) => {
+      if (!users) {
+        errors.user_not_found = "User's not found";
+        return res.status(400).json(errors);
+      }
+      res.json(users);
+    })
+    .catch((err) => res.status(404).json({ users: "User's not found" }));
+});
 
 // Get a single user by id from the database
 router.get("/:user_id", (req, res) => {
-  console.log(req.params.user_id)
-  const errors = {}
-  User.findById({_id : req.params.user_id })
-  .then((user) => {
-    if(!user){
-      errors.user_not_found = "User not found"
-      return res.status(400).json({
-        errors
-      })
-    }
-    res.json(user)
-  })
-  .catch((error) => {
-    res.status(400).json({
-      user: "user not found"
+  console.log(req.params.user_id);
+  const errors = {};
+  User.findById({ _id: req.params.user_id })
+    .then((user) => {
+      if (!user) {
+        errors.user_not_found = "User not found";
+        return res.status(400).json({
+          errors,
+        });
+      }
+      res.json(user);
     })
-  })
-})
-
+    .catch((error) => {
+      res.status(400).json({
+        user: "user not found",
+      });
+    });
+});
 
 // For deleting a single user
-router.delete("/:id", passport.authenticate("jwt", { session: false }),
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const id = req.params.id
-    User.findByIdAndRemove(id, function(err, done){
-      if(err){
+    const id = req.params.id;
+    User.findByIdAndRemove(id, function (err, done) {
+      if (err) {
         res.status(400).json({
-          not_deleted: "User could not be deleted"
-        })
-      }
-      else{
+          not_deleted: "User could not be deleted",
+        });
+      } else {
         res.status(200).json({
-          user_deleted: "User successfully deleted"
-        })
+          user_deleted: "User successfully deleted",
+        });
       }
-    })
-      
+    });
   }
 );
-
 
 module.exports = router;

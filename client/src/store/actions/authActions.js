@@ -1,7 +1,6 @@
 import setAuthToken from "../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import { route } from "../api_calls";
-import axios from "axios";
 import { GET_ERRORS, SET_CURRENT_USER, SET_USER_TOKEN } from "./action_types";
 
 // Register User action
