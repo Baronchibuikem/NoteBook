@@ -41,17 +41,19 @@ function Dashboard() {
           <h4 className="text-center mb-2">My notes</h4>
           <button onClick={() => setAddPost(!addPost)}>Create Note</button>
           <button>Add Category</button>
-          {params.allpost.map((post) => (
-            <div key={post._id}>
-              <Card
-                text={post.text}
-                category={post.category.name}
-                name={post.name}
-                id={post._id}
-                click={get_post}
-              />
-            </div>
-          ))}
+          {params.allpost
+            ? params.allpost.map((post) => (
+                <div key={post._id}>
+                  <Card
+                    text={post.text}
+                    category={post.category.name}
+                    name={post.name}
+                    id={post._id}
+                    click={get_post}
+                  />
+                </div>
+              ))
+            : ""}
         </div>
         <div
           className="col-md-8"
@@ -61,7 +63,12 @@ function Dashboard() {
             <SinglePost
               name={params.singlepost.name}
               text={params.singlepost.text}
-              category={params.singlepost.category.name}
+              category={
+                params.singlepost !== null &&
+                params.singlepost.category !== null
+                  ? params.singlepost.category.name
+                  : ""
+              }
             />
           ) : (
             <TextEditor />
