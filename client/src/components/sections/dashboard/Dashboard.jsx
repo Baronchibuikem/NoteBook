@@ -39,8 +39,22 @@ function Dashboard() {
           style={{ overflowY: "scroll", height: "calc(100vh - 127px)" }}
         >
           <h4 className="text-center mb-2">My notes</h4>
-          <button onClick={() => setAddPost(!addPost)}>Create Note</button>
-          <button>Add Category</button>
+          <div className="row my-3">
+            <div className="col-md-6">
+              <button
+                onClick={() => setAddPost(!addPost)}
+                className="form-control bg-success text-light"
+              >
+                Create Note
+              </button>
+            </div>
+            <div className="col-md-6">
+              <button className="form-control bg-success text-light">
+                Add Category
+              </button>
+            </div>
+          </div>
+
           {params.allpost.map((post) => (
             <div key={post._id}>
               <Card

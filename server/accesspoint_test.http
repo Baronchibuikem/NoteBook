@@ -3,7 +3,7 @@ POST http://localhost:5000/api/users/login
 content-type: application/json
 
 {
-    "email": "warri2@gmail.com",
+    "email": "priyeobi@gmail.com",
     "password": "admin12345"
 }
 
@@ -54,6 +54,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ3ZGM4Z
 
 ###
 
+# For adding a Category 
+GET http://localhost:5000/api/posts/category
+Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ3ZGM4ZjRlMjlkOTcwZjI3ZjU0YiIsImVtYWlsIjoicHJpeWVvYmlAZ21haWwuY29tIiwiaWF0IjoxNjEwMTc0NTA4LCJleHAiOjE2MTAxOTYxMDh9.N0k61anEVEx6bOG577_nH5U8Kg2-_QaGXj5HVJUmZeE
+
+
+###
+
 # For adding a Post 
 POST http://localhost:5000/api/posts
 Content-type: application/json
@@ -71,5 +79,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ4MzFhZ
 
 # For listening all post
 GET http://localhost:5000/api/posts
+Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ4MzFhZjEyZmQ3YTAxMjU0ZjkzMiIsImVtYWlsIjoid2FycmkyQGdtYWlsLmNvbSIsImlhdCI6MTYxMDAyNDUzMywiZXhwIjoxNjEwMDQ2MTMzfQ.5cNlZzJ9jYjqauaaFtypiWYo6FtxTBqUAj63x0Tr0J0
+
+####
+
+GET http://localhost:5000/api/posts/5ff5ce1f38835962e23ab00f
 Content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ4MzFhZjEyZmQ3YTAxMjU0ZjkzMiIsImVtYWlsIjoid2FycmkyQGdtYWlsLmNvbSIsImlhdCI6MTYxMDAxNjE1OSwiZXhwIjoxNjEwMDM3NzU5fQ.OuCtck01fRkBGDc7hKJxuDK_v2LvxzR8B19bfZJxWIE
