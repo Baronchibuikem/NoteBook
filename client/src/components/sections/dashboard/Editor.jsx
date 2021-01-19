@@ -18,6 +18,11 @@ const TextEditor = (props) => {
   // and then plug it in here
   //   ClassicEditor.defaultConfig = config;
 
+  CKEditor.editorConfig = function (config) {
+    config.enterMode = CKEditor.ENTER_BR;
+    config.shiftEnterMode = CKEditor.ENTER_P;
+  };
+
   const dispatch = useDispatch();
 
   // for fetching state
@@ -35,7 +40,7 @@ const TextEditor = (props) => {
       owner: params.userId,
     };
     console.log(data);
-    dispatch(addPost(data));
+    // dispatch(addPost(data));
   };
 
   const handleChange = (e, editor) => {
@@ -61,8 +66,13 @@ const TextEditor = (props) => {
               className="form-control"
               onChange={handleCategoryChange}
             >
+              <option value="None" selected>
+                None Selected{" "}
+              </option>
               {params.allcategory.map((category) => (
-                <option key={category._id}>{category.name}</option>
+                <option key={category._id} value={category._id}>
+                  {category.name}
+                </option>
               ))}
             </select>
             <input

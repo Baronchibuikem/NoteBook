@@ -11,7 +11,44 @@ import {
   DISABLE_LOADING,
   GET_CATEGORIES,
   SERVER_ERRORS,
+  ADD_CATEGORY,
 } from "./action_types";
+
+// Add category
+// Add Post
+export const addCategory = (postData) => async (dispatch, getState) => {
+  console.log(postData, "post dada");
+  const token = getState().authentication.token;
+  let config = {
+    headers: {
+      Authorization: token,
+      "Content-Type": "application/json",
+    },
+  };
+  dispatch(setPostLoading());
+  dispatch(clearErrors());
+
+  try {
+    const res = await route.post(
+      "/api/posts/category",
+      {
+        name: postData.name,
+      },
+      config
+    );
+    console.log(res.data);
+    dispatch({
+      type: ADD_CATEGORY,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data,
+    });
+  }
+};
 
 // Add Post
 export const addPost = (postData) => async (dispatch, getState) => {
@@ -63,6 +100,7 @@ export const getPosts = () => async (dispatch, getState) => {
   dispatch(setPostLoading());
   dispatch(clearErrors());
   const res = await route.get("/api/posts", config);
+  console.log(res, "from server");
   try {
     dispatch({
       type: GET_POSTS,

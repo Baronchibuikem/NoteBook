@@ -19,7 +19,7 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const userId = req.user._id;
-    Post.find({ user: userId })
+    Post.find({ owner: userId })
       .sort({ date: 1 })
       //   .populate("user", "name")
       .populate({
@@ -61,7 +61,12 @@ router.post(
       category: req.body.category,
     });
     console.log(newPost);
-    newPost.save().then((post) => res.json(post));
+    newPost
+      .save()
+      .then((post) => res.json(post))
+      .catch((err) =>
+        res.status(404).json({ PostNotPosted: "Couldn't send your post" })
+      );
   }
 );
 
@@ -89,11 +94,9 @@ router.get(
       response = await Category.find({ user: userId });
       res.json(response);
     } catch (error) {
-      res
-        .status(404)
-        .json({
-          PostsNotFound: "Couldn't get all all category from the database",
-        });
+      res.status(404).json({
+        PostsNotFound: "Couldn't get all all category from the database",
+      });
     }
   }
 );

@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 import {
   getPosts,
   getPost,
   getCategories,
+  addCategory,
 } from "../../../store/actions/postActions";
 import Card from "../../libs/Cards";
 import SinglePost from "./SinglePost";
 import TextEditor from "./Editor";
+
+import TextField from "@material-ui/core/TextField";
 
 function Dashboard() {
   const [addPost, setAddPost] = useState(false);
@@ -20,6 +24,9 @@ function Dashboard() {
 
   const dispatch = useDispatch();
 
+  // hooks form
+  const { register, handleSubmit, errors } = useForm();
+
   // for displaying post on render
   useEffect(() => {
     dispatch(getPosts());
@@ -29,6 +36,11 @@ function Dashboard() {
   const get_post = (id) => {
     setAddPost(false);
     dispatch(getPost(id));
+  };
+
+  // this is used to dispatch a redux action with the neeeded login data
+  const category = (data) => {
+    dispatch(addCategory({ name: data.name }));
   };
 
   return (
@@ -49,9 +61,65 @@ function Dashboard() {
               </button>
             </div>
             <div className="col-md-6">
-              <button className="form-control bg-success text-light">
+              <button
+                className="form-control bg-success text-light"
+                data-toggle="modal"
+                data-target="#exampleModalCenter"
+              >
                 Add Category
               </button>
+              {/* Modal for adding a category */}
+              <div
+                className="modal fade"
+                id="exampleModalCenter"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="exampleModalCenterTitle"
+                aria-hidden="true"
+              >
+                <div
+                  className="modal-dialog modal-dialog-centered"
+                  role="document"
+                >
+                  <div className="modal-content">
+                    <form onSubmit={handleSubmit(category)}>
+                      <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLongTitle">
+                          Category Title
+                        </h5>
+                        <button
+                          type="button"
+                          className="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div className="modal-body">
+                        <TextField
+                          id="outlined-basic"
+                          label="Enter category name"
+                          variant="outlined"
+                          inputRef={register({ required: true })}
+                          name="name"
+                          type="text"
+                          fullWidth
+                        />
+                      </div>
+                      <div className="modal-footer">
+                        <button
+                          type="submit"
+                          className="btn btn-success form-control"
+                        >
+                          Save changes
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              {/* close of modal for adding a category */}
             </div>
           </div>
 
@@ -75,7 +143,12 @@ function Dashboard() {
             <SinglePost
               name={params.singlepost.name}
               text={params.singlepost.text}
-              category={params.singlepost.category.name}
+              category={
+                params.singlepost !== null &&
+                params.singlepost.category !== null
+                  ? params.singlepost.category.name
+                  : ""
+              }
             />
           ) : (
             <TextEditor />
