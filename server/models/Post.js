@@ -19,7 +19,6 @@ const PostSchema = new Schema({
   text: {
     type: String,
     required: false,
-    max: 2000,
   },
   draft: {
     type: Boolean,

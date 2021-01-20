@@ -85,7 +85,7 @@ function Dashboard() {
                     <form onSubmit={handleSubmit(category)}>
                       <div className="modal-header">
                         <h5 className="modal-title" id="exampleModalLongTitle">
-                          Category Title
+                          Category Name
                         </h5>
                         <button
                           type="button"
@@ -112,7 +112,7 @@ function Dashboard() {
                           type="submit"
                           className="btn btn-success form-control"
                         >
-                          Save changes
+                          Add Category
                         </button>
                       </div>
                     </form>

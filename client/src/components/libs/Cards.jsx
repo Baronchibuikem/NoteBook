@@ -70,6 +70,7 @@ export default function SimpleCard(props) {
         >
           Learn More
         </Button>
+        <i className="trash"></i>Delete
       </CardActions>
     </Card>
   );

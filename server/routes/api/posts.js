@@ -12,6 +12,7 @@ const Post = require("../../models/Post");
 const validateRegisterInput = require("../../validations/register");
 const validateLoginInput = require("../../validations/login");
 const category = require("../../models/Category");
+const post = require("../../models/Post");
 
 // for getting all the post the current logged in user created
 router.get(
@@ -89,7 +90,6 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const userId = req.user._id;
-    console.log(userId);
     try {
       response = await Category.find({ user: userId });
       res.json(response);
@@ -126,4 +126,27 @@ router.get("/:id", (req, res) => {
       res.status(404).json({ PostNotFound: "Couldn't get the requested post" })
     );
 });
+
+// For deleting a post
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    // here we get the post by id created by the user
+    Post.findOne({ owner: req.user.id })
+      .then((post) => {
+        // We confirm that the post owner id is equal to the id of the user making the request
+        if (post.owner.toString() !== req.user.id) {
+          res.status(401).json({ notauthourized: "user not authourized" });
+        }
+        // We remove the post from the database
+        post.remove();
+        res.status(200).json({ success: true });
+      })
+      .catch((err) =>
+        res.status(404).json("Couldn't find the post on the server")
+      );
+  }
+);
+
 module.exports = router;
