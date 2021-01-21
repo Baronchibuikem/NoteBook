@@ -83,6 +83,7 @@ export default function SimpleCard(props) {
         <div>
           <i
             className="fa fa-trash text-danger mr-5"
+            style={{ cursor: "pointer" }}
             onClick={() => {
               delete_post(props.id);
             }}

@@ -11,9 +11,10 @@ import { addPost } from "../../../store/actions/postActions";
 
 const TextEditor = (props) => {
   const [addText, setAddText] = useState("");
-  const [addName, setAddName] = useState("");
+  const [addTitle, setAddTitle] = useState("");
   const [addCategory, setAddCategory] = useState("");
   const [addedData, setAddedData] = useState(0);
+  const [displayError, setDisplayError] = useState(null);
 
   // and then plug it in here
   //   ClassicEditor.defaultConfig = config;
@@ -33,23 +34,28 @@ const TextEditor = (props) => {
 
   const submit = (e) => {
     e.preventDefault();
+    if (addCategory === "") {
+      setDisplayError("Category cannot be None");
+    }
     const data = {
-      name: addName,
+      name: addTitle,
       text: addText,
       category: addCategory,
       owner: params.userId,
     };
-    console.log(data);
-    // dispatch(addPost(data));
+    dispatch(addPost(data));
+    // reset all the input to empty
+    setAddTitle("");
+    setAddText("");
+    setAddCategory("");
   };
 
-  const handleChange = (e, editor) => {
-    const data = editor.getData();
-    setAddText(data);
+  const handleChange = (e) => {
+    setAddText(e.target.value);
   };
 
-  const handleNameChange = (e) => {
-    setAddName(e.target.value);
+  const handleTitleChange = (e) => {
+    setAddTitle(e.target.value);
   };
 
   const handleCategoryChange = (e) => {
@@ -59,8 +65,11 @@ const TextEditor = (props) => {
   return (
     <div>
       <form onSubmit={submit}>
-        {!addedData ? (
+        {
           <div>
+            {displayError ? (
+              <div className="text-danger text-center">{displayError} </div>
+            ) : null}
             <select
               id=""
               className="form-control"
@@ -78,31 +87,21 @@ const TextEditor = (props) => {
             <input
               type="text"
               name="name"
+              required
               placeholder="Enter title here"
               className="form-control my-3 p-4"
-              onChange={handleNameChange}
+              onChange={handleTitleChange}
             />
-            <CKEditor
-              editor={ClassicEditor}
-              data={addText}
+            <textarea
+              required
+              rows="24"
+              maxLength="5000"
+              className="form-control "
               onChange={handleChange}
-            />
+            ></textarea>
           </div>
-        ) : (
-          <div className="ck-editor__editable mt-4">
-            {addedData ? ReactHtmlParser(addText) : null}
-          </div>
-        )}
+        }
         <div className="d-flex justify-content-between">
-          <button
-            className="form-control my-3 w-25 bg-dark text-light"
-            onClick={() => setAddedData(!addedData)}
-            data-toggle="modal"
-            data-target=".bd-example-modal-lg"
-            type="button"
-          >
-            {addedData ? "View form" : "Preview"}
-          </button>
           <button
             className="form-control my-3 w-25 bg-dark text-light"
             type="submit"

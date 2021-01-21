@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const validator = require("validator")
+const validator = require("validator");
 
 // Create user Schema
 const UserSchema = new Schema({
@@ -10,7 +10,7 @@ const UserSchema = new Schema({
   },
   lastName: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
@@ -18,8 +18,8 @@ const UserSchema = new Schema({
     unique: true,
     lowercase: true,
     validate: (value) => {
-      return validator.isEmail(value)
-    }
+      return validator.isEmail(value);
+    },
   },
   password: {
     type: String,
@@ -27,7 +27,7 @@ const UserSchema = new Schema({
   },
   isAdmin: {
     type: Boolean,
-    default: false
+    default: false,
   },
   date: {
     type: Date,
@@ -36,4 +36,4 @@ const UserSchema = new Schema({
 });
 
 const User = mongoose.model("user", UserSchema);
-module.exports =  User
+module.exports = User;
