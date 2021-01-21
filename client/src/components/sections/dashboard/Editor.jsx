@@ -36,18 +36,20 @@ const TextEditor = (props) => {
     e.preventDefault();
     if (addCategory === "") {
       setDisplayError("Category cannot be None");
+    } else {
+      const data = {
+        name: addTitle,
+        text: addText,
+        category: addCategory,
+        owner: params.userId,
+      };
+
+      dispatch(addPost(data));
+      // reset all the input to empty
+      setAddTitle("");
+      setAddText("");
+      setAddCategory("");
     }
-    const data = {
-      name: addTitle,
-      text: addText,
-      category: addCategory,
-      owner: params.userId,
-    };
-    dispatch(addPost(data));
-    // reset all the input to empty
-    setAddTitle("");
-    setAddText("");
-    setAddCategory("");
   };
 
   const handleChange = (e) => {
@@ -59,6 +61,7 @@ const TextEditor = (props) => {
   };
 
   const handleCategoryChange = (e) => {
+    setDisplayError(null);
     setAddCategory(e.target.value);
   };
 
@@ -67,9 +70,6 @@ const TextEditor = (props) => {
       <form onSubmit={submit}>
         {
           <div>
-            {displayError ? (
-              <div className="text-danger text-center">{displayError} </div>
-            ) : null}
             <select
               id=""
               className="form-control"
@@ -84,6 +84,9 @@ const TextEditor = (props) => {
                 </option>
               ))}
             </select>
+            {displayError ? (
+              <div className="text-danger text-center">{displayError} </div>
+            ) : null}
             <input
               type="text"
               name="name"
