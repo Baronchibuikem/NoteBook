@@ -79,10 +79,7 @@ export default function Navbar() {
             </ListItem>
           </Link>
           <hr className="bg-light" />
-          <Link
-            to="/profile"
-            className="text-light pollhover text-decoration-none"
-          >
+          <Link to="/faq" className="text-light pollhover text-decoration-none">
             <ListItem button>
               <ListItemIcon></ListItemIcon>
               <ListItemText>How to</ListItemText>

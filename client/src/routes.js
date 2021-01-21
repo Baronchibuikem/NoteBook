@@ -6,13 +6,12 @@ import PrivateRoute from "./components/libs/PrivateRoute";
 import dashboard from "./components/sections/dashboard/Dashboard";
 
 import TextEditor from "./components/sections/dashboard/Editor";
-import HomePage from "./components/sections/staticPages/HomePage";
+import HowTo from "./components/sections/staticPages/HowTo";
 const BaseRouter = () => (
   <Switch>
     <Route exact path="/login" component={Login} />
     <Route exact path="/register" component={register} />
-    <Route exact path="/editor" component={TextEditor} />
-    <Route exact path="/home" component={HomePage} />
+    <Route exact path="/faq" component={HowTo} />
     <PrivateRoute exact path="/" component={dashboard} />
   </Switch>
 );

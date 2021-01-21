@@ -120,8 +120,30 @@ export default function Register() {
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className="center-content">
-        <h1>Become more productive with JotterNote</h1>
-        <h4> JotterNote helps you stay upto your ideas and content...</h4>
+        <h3 className="container text-center">
+          <u>
+            JotterNote is a powerful note and record keeping appplication,
+            <br /> focused on helping you
+          </u>
+        </h3>
+        <ul className="list-unstyled h4 my-3">
+          <li className="my-2">
+            <i className="fa fa-check mr-3" aria-hidden="true"></i>
+            Organize your information
+          </li>
+          <li className="my-2">
+            <i class="fa fa-check mr-3" aria-hidden="true"></i>Interact with
+            others
+          </li>
+          <li className="my-2">
+            <i class="fa fa-check mr-3" aria-hidden="true"></i>Share your notes
+            with us
+          </li>
+          <li className="my-2">
+            <i class="fa fa-check mr-3" aria-hidden="true"></i>Create and keep a
+            record of everything
+          </li>
+        </ul>
       </Grid>
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
@@ -243,15 +265,13 @@ export default function Register() {
                 ) : (
                   "Register"
                 )} */}
-              Login
+              Register
             </Button>
 
-            <h6 className="text-center">
-              Already registered? then click{" "}
-              <Link exact to="/login">
-                here
-              </Link>{" "}
-              to Login now
+            <h6 className="text-center mt-3">
+              <Link exact to="/login" variant="body2">
+                Already registered? then click here to Login now
+              </Link>
             </h6>
           </form>
         </div>

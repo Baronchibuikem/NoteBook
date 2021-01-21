@@ -20,9 +20,9 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="#">
-        Baron Chibuikem
-      </Link>{" "}
+      {/* <Link color="inherit" href="#"> */}
+      Baron Chibuikem {""}
+      {/* </Link>{" "} */}
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -85,7 +85,7 @@ export default function Login() {
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className="center-content">
         <h1>Become more productive with JotterNote</h1>
-        <h4> JotterNote helps you stay upto your ideas and content...</h4>
+        <h4> JotterNote helps you stay ontop your ideas and content...</h4>
       </Grid>
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
@@ -108,7 +108,6 @@ export default function Login() {
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
               inputRef={register({ required: true })}
               type="email"
             />
@@ -135,25 +134,32 @@ export default function Login() {
               )}
             </h6>
             <Button
+              disableElevation
+              className="mx-auto px-5 col-sm-12 p-3 text-light"
               type="submit"
-              fullWidth
-              variant="contained"
               style={{ backgroundColor: "green" }}
-              className={classes.submit}
             >
-              Sign In
+              {/* {params.status ? (
+                  <div>
+                    <span>Loading</span>
+                  </div>
+                ) : (
+                  "Register"
+                )} */}
+              Login
             </Button>
             <Grid container>
-              <Grid item xs>
+              {/* <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
                 </Link>
-              </Grid>
-              <Grid item>
-                <Link exact to="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
+              </Grid> */}
+
+              <h6 className="text-center mt-2">
+                <Link exact to="/register">
+                  Don't have an account? Sign Up
+                </Link>{" "}
+              </h6>
             </Grid>
             <Box mt={5}>
               <Copyright />
