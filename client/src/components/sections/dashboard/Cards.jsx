@@ -48,7 +48,7 @@ export default function SimpleCard(props) {
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            R
+            JN
           </Avatar>
         }
         action={

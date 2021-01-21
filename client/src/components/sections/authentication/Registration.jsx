@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
@@ -7,11 +6,13 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import Avatar from "@material-ui/core/Avatar";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import { makeStyles } from "@material-ui/core/styles";
 
 import "../../../assets/css/Login.css";
 import { Link, Redirect } from "react-router-dom";
@@ -19,34 +20,75 @@ import { useForm } from "react-hook-form";
 import { registerUser } from "../../../store/actions/authActions";
 import { useSelector, useDispatch } from "react-redux";
 
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="#">
+        Baron Chibuikem
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
+    height: "100vh",
   },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    // flexBasis: "33.33%",
-    flexShrink: 0,
-    color: "white",
+  image: {
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
+  paper: {
+    margin: theme.spacing(8, 4),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    paddingTop: "20%",
   },
-  backgroundColor: {
-    backgroundColor: "green",
-  },
-  paddingBottom: {
-    marginBottom: "10px",
-  },
-  formControl: {
+  avatar: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    backgroundColor: theme.palette.secondary.main,
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
   },
 }));
+
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     width: "100%",
+//   },
+//   heading: {
+//     fontSize: theme.typography.pxToRem(15),
+//     // flexBasis: "33.33%",
+//     flexShrink: 0,
+//     color: "white",
+//   },
+//   secondaryHeading: {
+//     fontSize: theme.typography.pxToRem(15),
+//     color: theme.palette.text.secondary,
+//   },
+//   backgroundColor: {
+//     backgroundColor: "green",
+//   },
+//   paddingBottom: {
+//     marginBottom: "10px",
+//   },
+//   formControl: {
+//     margin: theme.spacing(1),
+//     minWidth: 120,
+//   },
+//   selectEmpty: {
+//     marginTop: theme.spacing(2),
+//   },
+// }));
 
 export default function Register() {
   const classes = useStyles();
@@ -75,37 +117,31 @@ export default function Register() {
   }
 
   return (
-    <div
-      style={{
-        backgroundColor: "#282c34",
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Card
-        className={classes.root}
-        className="container col-md-4 py-5 col-sm-12 sm-screen"
-      >
-        <form onSubmit={handleSubmit(regSubmit)}>
-          <CardContent>
-            <Typography
-              class="text-uppercase text-center font-weight-bold"
-              style={{ fontSize: "20px" }}
-            >
-              Sign up
-            </Typography>
+    <Grid container component="main" className={classes.root}>
+      <CssBaseline />
+      <Grid item xs={false} sm={4} md={7} className="center-content">
+        <h1>Become more productive with JotterNote</h1>
+        <h4> JotterNote helps you stay upto your ideas and content...</h4>
+      </Grid>
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Register
+          </Typography>
+          <form
+            className={classes.form}
+            noValidate
+            onSubmit={handleSubmit(regSubmit)}
+          >
             {/* Enter your first name */}
-
-            <Typography className={classes.heading}>First Name</Typography>
 
             <TextField
               id="outlined-basic"
               label="first name"
               variant="outlined"
-              className={classes.root}
               inputRef={register({ required: true })}
               name="firstName"
               fullWidth
@@ -118,12 +154,11 @@ export default function Register() {
 
             {/* Enter your last name */}
 
-            <Typography className={classes.heading}>Last Name</Typography>
             <TextField
               id="outlined-basic"
               label="last name"
+              margin="normal"
               variant="outlined"
-              className={classes.root}
               inputRef={register({ required: true })}
               name="lastName"
               fullWidth
@@ -136,12 +171,10 @@ export default function Register() {
 
             {/* Enter your email */}
 
-            <Typography className={classes.heading}>Email</Typography>
             <TextField
               id="outlined-basic"
               label="Enter your email here"
               variant="outlined"
-              className={classes.root}
               fullWidth
               inputRef={register({ required: true })}
               name="email"
@@ -155,15 +188,14 @@ export default function Register() {
 
             {/* Enter your password */}
 
-            <Typography className={classes.heading}>Password</Typography>
             <TextField
               id="outlined-basic"
               label="Enter your password"
               variant="outlined"
-              className={classes.root}
               inputRef={register({ required: true })}
               name="password"
               type="password"
+              fullWidth
             />
             <h6 className="text-left font-italic text-danger">
               {errors.password && errors.password.type === "required" && (
@@ -173,9 +205,6 @@ export default function Register() {
 
             {/* password confirmation */}
 
-            <Typography className={classes.heading}>
-              Confirm Password
-            </Typography>
             <h6 className="text-left font-italic text-danger">
               {errors.password2 && errors.password2.type === "validate" && (
                 <p>Passwords don't match</p>
@@ -186,7 +215,7 @@ export default function Register() {
               label="Confirm your password"
               variant="outlined"
               name="password2"
-              className={classes.root}
+              fullWidth
               inputRef={register({
                 required: true,
                 validate: (value) => {
@@ -200,23 +229,22 @@ export default function Register() {
                 <p>Please confirm your password</p>
               )}
             </h6>
-            <CardActions>
-              <Button
-                disableElevation
-                className="mx-auto px-5 col-sm-12 p-3 text-light"
-                type="submit"
-                style={{ backgroundColor: "green" }}
-              >
-                {/* {params.status ? (
+            <Button
+              disableElevation
+              className="mx-auto px-5 col-sm-12 p-3 text-light"
+              type="submit"
+              style={{ backgroundColor: "green" }}
+            >
+              {/* {params.status ? (
                   <div>
                     <span>Loading</span>
                   </div>
                 ) : (
                   "Register"
                 )} */}
-                Login
-              </Button>
-            </CardActions>
+              Login
+            </Button>
+
             <h6 className="text-center">
               Already registered? then click{" "}
               <Link exact to="/login">
@@ -224,9 +252,9 @@ export default function Register() {
               </Link>{" "}
               to Login now
             </h6>
-          </CardContent>
-        </form>
-      </Card>
-    </div>
+          </form>
+        </div>
+      </Grid>
+    </Grid>
   );
 }

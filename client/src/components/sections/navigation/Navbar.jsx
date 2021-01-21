@@ -169,7 +169,7 @@ export default function Navbar() {
         ))}
         <Typography variant="h6" className="mr-auto ml-3 content-size">
           Hi {params.user.firstName} {""} {params.user.lastName} {""}welcome to
-          your daily DraftIt application
+          your JotterNote
         </Typography>
       </Toolbar>
     </AppBar>

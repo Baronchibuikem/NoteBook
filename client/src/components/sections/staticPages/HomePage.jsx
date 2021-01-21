@@ -34,6 +34,12 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
   },
   image: {
+    backgroundImage: "url(https://source.unsplash.com/random)",
+    backgroundRepeat: "no-repeat",
+    backgroundColor:
+      theme.palette.type === "light"
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
     backgroundSize: "cover",
     backgroundPosition: "center",
   },
@@ -42,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    paddingTop: "20%",
   },
   avatar: {
     margin: theme.spacing(1),
@@ -83,10 +88,7 @@ export default function Login() {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className="center-content">
-        <h1>Become more productive with JotterNote</h1>
-        <h4> JotterNote helps you stay upto your ideas and content...</h4>
-      </Grid>
+      <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -138,7 +140,7 @@ export default function Login() {
               type="submit"
               fullWidth
               variant="contained"
-              style={{ backgroundColor: "green" }}
+              color="primary"
               className={classes.submit}
             >
               Sign In

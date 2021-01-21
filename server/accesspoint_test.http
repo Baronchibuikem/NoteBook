@@ -3,7 +3,7 @@ POST http://localhost:5000/api/users/login
 content-type: application/json
 
 {
-    "email": "priyeobi@gmail.com",
+    "email": "okeke@gmail.com",
     "password": "admin12345"
 }
 
@@ -78,13 +78,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ3ZGM4Z
 # For listening all post
 GET http://localhost:5000/api/posts
 Content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ3ZGM4ZjRlMjlkOTcwZjI3ZjU0YiIsImZpcnN0TmFtZSI6IlByaXllIiwibGFzdE5hbWUiOiJPYmFyZW1pIiwiZW1haWwiOiJwcml5ZW9iaUBnbWFpbC5jb20iLCJhZG1pbiI6ZmFsc2UsImlhdCI6MTYxMTE4MTE4NywiZXhwIjoxNjExMjAyNzg3fQ.ZuK9ofvDrMNbA3VlbRBrvwpyXSHpuZI-gz3vuVMFU8U
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ3ZGM4ZjRlMjlkOTcwZjI3ZjU0YiIsImZpcnN0TmFtZSI6IlByaXllIiwibGFzdE5hbWUiOiJPYmFyZW1pIiwiZW1haWwiOiJwcml5ZW9iaUBnbWFpbC5jb20iLCJhZG1pbiI6ZmFsc2UsImlhdCI6MTYxMTIzMDA4MSwiZXhwIjoxNjExMjUxNjgxfQ.S5c73mGdK35QAnAHJL-OIHjdbclPT0gjYZbNPvcPFI8
 ####
 
-GET http://localhost:5000/api/posts/6007d3cf44a8c5618ca575d6
+GET http://localhost:5000/api/posts/60095bde8d960ad8ea5d0419
 Content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ3ZGM4ZjRlMjlkOTcwZjI3ZjU0YiIsImZpcnN0TmFtZSI6IlByaXllIiwibGFzdE5hbWUiOiJPYmFyZW1pIiwiZW1haWwiOiJwcml5ZW9iaUBnbWFpbC5jb20iLCJhZG1pbiI6ZmFsc2UsImlhdCI6MTYxMTE4MTE4NywiZXhwIjoxNjExMjAyNzg3fQ.ZuK9ofvDrMNbA3VlbRBrvwpyXSHpuZI-gz3vuVMFU8U
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDk2YWM0NTBiZGJmMWJhMzA5YzFlZiIsImZpcnN0TmFtZSI6IkN5bnRoaWEiLCJsYXN0TmFtZSI6Ik9rZWtlIiwiZW1haWwiOiJva2VrZUBnbWFpbC5jb20iLCJhZG1pbiI6ZmFsc2UsImlhdCI6MTYxMTIzMDU1OCwiZXhwIjoxNjExMjUyMTU4fQ.J2sfh3hx1E9MD3pcHvGzgbluU3227J1V5a7sgcn3cq4
 
 ####
 
