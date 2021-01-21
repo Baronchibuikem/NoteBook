@@ -1,4 +1,4 @@
 module.exports = {
-  mongoURI: "mongodb://localhost/officemanagement",
+  mongoURI: "mongodb://localhost/jotternote",
   secretOrKey: "secret",
 };

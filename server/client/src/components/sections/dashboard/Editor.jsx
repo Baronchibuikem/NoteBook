@@ -16,14 +16,6 @@ const TextEditor = (props) => {
   const [addedData, setAddedData] = useState(0);
   const [displayError, setDisplayError] = useState(null);
 
-  // and then plug it in here
-  //   ClassicEditor.defaultConfig = config;
-
-  CKEditor.editorConfig = function (config) {
-    config.enterMode = CKEditor.ENTER_BR;
-    config.shiftEnterMode = CKEditor.ENTER_P;
-  };
-
   const dispatch = useDispatch();
 
   // for fetching state
@@ -78,11 +70,13 @@ const TextEditor = (props) => {
               <option value="None" selected>
                 None Selected{" "}
               </option>
-              {params.allcategory.map((category) => (
-                <option key={category._id} value={category._id}>
-                  {category.name}
-                </option>
-              ))}
+              {params.allcategory && params.allcategory.length >= 0
+                ? params.allcategory.map((category) => (
+                    <option key={category._id} value={category._id}>
+                      {category.name}
+                    </option>
+                  ))
+                : "No category added yet"}
             </select>
             {displayError ? (
               <div className="text-danger text-center">{displayError} </div>

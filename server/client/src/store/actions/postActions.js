@@ -98,8 +98,9 @@ export const getPosts = () => async (dispatch, getState) => {
   };
   dispatch(setPostLoading());
   dispatch(clearErrors());
-  const res = await route.get("/api/posts", config);
   try {
+    const res = await route.get("/api/posts", config);
+    console.log(res.data, "for all post");
     dispatch({
       type: GET_POSTS,
       payload: res.data,

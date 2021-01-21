@@ -44,6 +44,12 @@ const posts = require("./routes/api/posts");
 app.use("/api/users", users);
 app.use("/api/posts", posts);
 
+// For serving my react client build index file
+app.use(express.static(path.join(__dirname, "client", "build")));
+app.get("/*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
+
 // declaring port
 const port = process.env.PORT || 5000;
 
