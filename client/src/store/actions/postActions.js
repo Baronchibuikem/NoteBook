@@ -74,7 +74,6 @@ export const addPost = (postData) => async (dispatch, getState) => {
       },
       config
     );
-    console.log(res.data);
     dispatch({
       type: ADD_POST,
       payload: res.data,
@@ -100,7 +99,6 @@ export const getPosts = () => async (dispatch, getState) => {
   dispatch(setPostLoading());
   dispatch(clearErrors());
   const res = await route.get("/api/posts", config);
-  console.log(res, "from server");
   try {
     dispatch({
       type: GET_POSTS,
@@ -115,10 +113,18 @@ export const getPosts = () => async (dispatch, getState) => {
 };
 
 // Get Post
-export const getPost = (id) => async (dispatch) => {
+export const getPost = (id) => async (dispatch, getState) => {
+  const token = getState().authentication.token;
+  let config = {
+    headers: {
+      Authorization: token,
+      "Content-Type": "application/json",
+    },
+  };
   dispatch(setPostLoading());
   try {
-    const res = await axios.get(`/api/posts/${id}`);
+    const res = await route.get(`/api/posts/${id}`, config);
+    console.log(res, "from post id");
     dispatch({
       type: GET_POST,
       payload: res.data,

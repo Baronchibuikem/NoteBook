@@ -116,7 +116,6 @@ router.get(
         select: { firstName: 1, lastName: 1 },
       })
       .then((post) => {
-        console.log(post, "post id");
         if (post) {
           res.json(post);
         } else {

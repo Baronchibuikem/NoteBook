@@ -20,6 +20,7 @@ function Dashboard() {
   const params = useSelector((state) => ({
     allpost: state.postreducer.posts,
     singlepost: state.postreducer.post,
+    user: state.authentication.user,
   }));
 
   const dispatch = useDispatch();
@@ -139,7 +140,9 @@ function Dashboard() {
           className="col-md-8"
           style={{ overflowY: "scroll", height: "calc(100vh - 127px)" }}
         >
-          {params.singlepost !== null && !addPost ? (
+          {params.singlepost !== null &&
+          !addPost &&
+          params.singlepost.owner._id === params.user.id ? (
             <SinglePost
               name={params.singlepost.name}
               text={params.singlepost.text}

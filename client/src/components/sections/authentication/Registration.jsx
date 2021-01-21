@@ -196,6 +196,7 @@ export default function Register() {
               name="password"
               type="password"
               fullWidth
+              className="my-2"
             />
             <h6 className="text-left font-italic text-danger">
               {errors.password && errors.password.type === "required" && (
