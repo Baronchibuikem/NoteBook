@@ -1,9 +1,17 @@
-An office management appllication currently being built with Mongodb, Express, React and Node.
+An Note taking appllication currently being built with Mongodb, Express, React and Node.
 
-
-It's intended to be used to manage staff and resources of an organization
+It's intended to help user's take notes, jot ideas down and easily retrieve them when they need it
 
 ### To run this project locally
 
-    npm run client_install
-    npm run dev
+To start the node/express server
+
+    cd server
+    npm install
+    npm run server
+
+To start the react client
+
+    cd client
+    npm install
+    npm start
