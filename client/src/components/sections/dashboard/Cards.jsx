@@ -8,7 +8,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
-import { deletePost } from "../../store/actions/postActions";
+import { deletePost } from "../../../store/actions/postActions";
 import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles({

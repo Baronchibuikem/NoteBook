@@ -51,16 +51,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Register() {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
-  const [team, setTeam] = useState("");
-  const [subTeam, setSubTeam] = useState("");
-
-  const handleTeamChange = (event) => {
-    setTeam(event.target.value);
-  };
-
-  const handleSubTeamChange = (event) => {
-    setSubTeam(event.target.value);
-  };
 
   const { register, handleSubmit, errors, watch } = useForm();
 
@@ -113,11 +103,11 @@ export default function Register() {
 
             <TextField
               id="outlined-basic"
-              label="Enter your first name here"
+              label="first name"
               variant="outlined"
               className={classes.root}
               inputRef={register({ required: true })}
-              name="name"
+              name="firstName"
               fullWidth
             />
             <h6 className="text-left font-italic text-danger">
@@ -131,11 +121,11 @@ export default function Register() {
             <Typography className={classes.heading}>Last Name</Typography>
             <TextField
               id="outlined-basic"
-              label="Enter your First Name here"
+              label="last name"
               variant="outlined"
               className={classes.root}
               inputRef={register({ required: true })}
-              name="name"
+              name="lastName"
               fullWidth
             />
             <h6 className="text-left font-italic text-danger">
@@ -162,46 +152,6 @@ export default function Register() {
                 <p>Email field is required</p>
               )}
             </h6>
-
-            {/* Department Role */}
-            <FormControl variant="outlined" className={classes.root}>
-              <InputLabel id="">Team</InputLabel>
-              <Select
-                value={team}
-                onChange={handleTeamChange}
-                label="Team"
-                inputRef={register({ required: true })}
-                name="Team"
-              >
-                <MenuItem value={5}>IT and Design</MenuItem>
-                <MenuItem value={10}>Human Resoure</MenuItem>
-                <MenuItem value={20}>Project Management</MenuItem>
-                <MenuItem value={30}>Business Development</MenuItem>
-                <MenuItem value={40}>Office Admin</MenuItem>
-                <MenuItem value={50}>Support Staff</MenuItem>
-              </Select>
-            </FormControl>
-
-            {/* Department unit */}
-            <FormControl variant="outlined" className={classes.root}>
-              <InputLabel id="demo-simple-select-outlined-label">
-                Department Name
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={subTeam}
-                onChange={handleSubTeamChange}
-                label="Department Name"
-              >
-                <MenuItem value={5}>Frontend Developer</MenuItem>
-                <MenuItem value={10}>Backend Developer</MenuItem>
-                <MenuItem value={20}>IT Support</MenuItem>
-                <MenuItem value={30}>Design Team</MenuItem>
-                <MenuItem value={40}>Human Resource</MenuItem>
-                <MenuItem value={50}>Finance Assistant</MenuItem>
-              </Select>
-            </FormControl>
 
             {/* Enter your password */}
 

@@ -5,10 +5,11 @@ import { GET_ERRORS, SET_CURRENT_USER, SET_USER_TOKEN } from "./action_types";
 
 // Register User action
 export const registerUser = (params) => async (dispatch) => {
-  const { name, email, password, password2 } = params.data;
+  const { firstName, lastName, email, password, password2 } = params.data;
   try {
     const response = await route.post("/api/users/register", {
-      name,
+      firstName,
+      lastName,
       email,
       password,
       password2,

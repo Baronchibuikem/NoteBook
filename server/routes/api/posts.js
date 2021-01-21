@@ -8,12 +8,6 @@ const passport = require("passport");
 const Category = require("../../models/Category");
 const Post = require("../../models/Post");
 
-// Load input validation
-const validateRegisterInput = require("../../validations/register");
-const validateLoginInput = require("../../validations/login");
-const category = require("../../models/Category");
-const post = require("../../models/Post");
-
 // for getting all the post the current logged in user created
 router.get(
   "/",
@@ -104,28 +98,38 @@ router.get(
 // @route   GET api/posts/:id
 // @desc    Get single post post
 // @access  Public
-router.get("/:id", (req, res) => {
-  Post.findById(req.params.id)
-    // for getting the name of the user from the list of comments posted
-    .populate({
-      path: "category",
-      select: { name: 1 },
-    })
-    .populate({
-      path: "owner",
-      select: { firstName: 1, lastName: 1 },
-    })
-    .then((post) => {
-      if (post) {
-        res.json(post);
-      } else {
-        res.status(404).json({ nopostfound: "No post found with that ID" });
-      }
-    })
-    .catch((err) =>
-      res.status(404).json({ PostNotFound: "Couldn't get the requested post" })
-    );
-});
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Post.findOne({ owner: req.user.id })
+      // .then((post) => {
+      //   console.log(post);
+      // })
+      // for getting the name of the user from the list of comments posted
+      .populate({
+        path: "category",
+        select: { name: 1 },
+      })
+      .populate({
+        path: "owner",
+        select: { firstName: 1, lastName: 1 },
+      })
+      .then((post) => {
+        console.log(post, "post id");
+        if (post) {
+          res.json(post);
+        } else {
+          res.status(404).json({ nopostfound: "No post found with that ID" });
+        }
+      })
+      .catch((err) =>
+        res
+          .status(404)
+          .json({ PostNotFound: "Couldn't get the requested post" })
+      );
+  }
+);
 
 // For deleting a post
 router.delete(

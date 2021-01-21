@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import Card from "./Cards";
 import {
   getPosts,
   getPost,
   getCategories,
   addCategory,
 } from "../../../store/actions/postActions";
-import Card from "../../libs/Cards";
 import SinglePost from "./SinglePost";
 import TextEditor from "./Editor";
 
