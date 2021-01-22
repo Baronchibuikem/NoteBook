@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const path = require("path");
 const cors = require("cors");
+require("dotenv").config();
 
 // for graphql
 const { graphqlHTTP } = require("express-graphql");

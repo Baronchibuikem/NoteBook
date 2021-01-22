@@ -1,4 +1,4 @@
 module.exports = {
-  mongoURI: "mongodb://localhost/jotternote",
+  mongoURI: process.env.MONGOURI,
   secretOrKey: "secret",
 };
