@@ -38,7 +38,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "https://jotternote.herokuapp.com",
   "secure": false,
   "eslintConfig": {
     "extends": "react-app"
