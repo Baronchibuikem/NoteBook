@@ -15,7 +15,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 
 import "../../../assets/css/Login.css";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { registerUser } from "../../../store/actions/authActions";
 import { useSelector, useDispatch } from "react-redux";
@@ -61,34 +61,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     width: "100%",
-//   },
-//   heading: {
-//     fontSize: theme.typography.pxToRem(15),
-//     // flexBasis: "33.33%",
-//     flexShrink: 0,
-//     color: "white",
-//   },
-//   secondaryHeading: {
-//     fontSize: theme.typography.pxToRem(15),
-//     color: theme.palette.text.secondary,
-//   },
-//   backgroundColor: {
-//     backgroundColor: "green",
-//   },
-//   paddingBottom: {
-//     marginBottom: "10px",
-//   },
-//   formControl: {
-//     margin: theme.spacing(1),
-//     minWidth: 120,
-//   },
-//   selectEmpty: {
-//     marginTop: theme.spacing(2),
-//   },
-// }));
+
 
 export default function Register() {
   const classes = useStyles();
@@ -109,10 +82,10 @@ export default function Register() {
   };
 
   const params = useSelector((state) => ({
-    authenticated: state.authentication.isAuthenticated,
+    registered: state.authentication.registered
   }));
   // Here we are checking if our authenticated value from the state is true, it yes we redirect to the homepage
-  if (!params.authenticated) {
+  if (params.registered) {
     return <Redirect to="/login" />;
   }
 

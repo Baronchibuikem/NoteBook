@@ -10,6 +10,7 @@ const initialState = {
   isLoading: false,
   isAuthenticated: false,
   user: {},
+  registered: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -23,6 +24,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         // isAuthenticated: !isEmpty(action.payload),
+        registered: true,
         user: action.payload,
       };
     case SET_USER_TOKEN:
