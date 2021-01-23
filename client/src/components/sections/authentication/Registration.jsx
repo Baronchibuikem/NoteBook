@@ -112,8 +112,8 @@ export default function Register() {
     authenticated: state.authentication.isAuthenticated,
   }));
   // Here we are checking if our authenticated value from the state is true, it yes we redirect to the homepage
-  if (params.authenticated) {
-    return <Redirect to="/" />;
+  if (!params.authenticated) {
+    return <Redirect to="/login" />;
   }
 
   return (
