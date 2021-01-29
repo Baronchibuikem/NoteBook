@@ -23,7 +23,7 @@ const reducer = (state = initialState, action) => {
     case SET_CURRENT_USER:
       return {
         ...state,
-        // isAuthenticated: !isEmpty(action.payload),
+        isAuthenticated: !isEmpty(action.payload),
         registered: true,
         user: action.payload,
       };
