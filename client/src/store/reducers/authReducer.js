@@ -34,7 +34,8 @@ const reducer = (state = initialState, action) => {
     case SET_CURRENT_DETAIL:
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
+        isAuthenticated: true,
       };
     default:
       return state;
