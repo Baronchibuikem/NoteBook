@@ -7,7 +7,6 @@ import {
   DISABLE_LOADING,
   GET_CATEGORIES,
   SERVER_ERRORS,
-  ADD_CATEGORY,
 } from "../actions/action_types";
 
 const initialState = {
@@ -47,17 +46,10 @@ export default function (state = initialState, action) {
         posts: [action.payload, ...state.posts],
         loading: false,
       };
-    case ADD_CATEGORY:
-      return {
-        ...state,
-        categories: [action.payload, ...state.categories],
-        loading: false,
-      };
     case GET_CATEGORIES:
       return {
         ...state,
         categories: action.payload,
-        loading: false,
       };
     case SERVER_ERRORS:
       return {

@@ -2,7 +2,6 @@ import {
   REQUEST_LOADING,
   SET_CURRENT_USER,
   SET_USER_TOKEN,
-  SET_CURRENT_DETAIL
 } from "../actions/action_types";
 import isEmpty from "../../validation/is-empty";
 
@@ -11,7 +10,6 @@ const initialState = {
   isLoading: false,
   isAuthenticated: false,
   user: {},
-  registered: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -24,18 +22,13 @@ const reducer = (state = initialState, action) => {
     case SET_CURRENT_USER:
       return {
         ...state,
-        registered: true,
+        isAuthenticated: !isEmpty(action.payload),
+        user: action.payload,
       };
     case SET_USER_TOKEN:
       return {
         ...state,
         token: action.payload,
-      };
-    case SET_CURRENT_DETAIL:
-      return {
-        ...state,
-        user: action.payload,
-        isAuthenticated: true,
       };
     default:
       return state;

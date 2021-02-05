@@ -1,0 +1,3 @@
+.ck-editor__editable {
+  min-height: calc(80vh - 127px) !important;
+}

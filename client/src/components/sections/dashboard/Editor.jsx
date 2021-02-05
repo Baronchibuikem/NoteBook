@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import ReactHtmlParser from "react-html-parser";
-import "../../../assets/css/GeneralStyles.css";
+import "../../../assets/css/Dashboard.css";
 import { addPost } from "../../../store/actions/postActions";
 
 // import the config here
@@ -11,10 +11,12 @@ import { addPost } from "../../../store/actions/postActions";
 
 const TextEditor = (props) => {
   const [addText, setAddText] = useState("");
-  const [addTitle, setAddTitle] = useState("");
+  const [addName, setAddName] = useState("");
   const [addCategory, setAddCategory] = useState("");
   const [addedData, setAddedData] = useState(0);
-  const [displayError, setDisplayError] = useState(null);
+
+  // and then plug it in here
+  //   ClassicEditor.defaultConfig = config;
 
   const dispatch = useDispatch();
 
@@ -26,79 +28,71 @@ const TextEditor = (props) => {
 
   const submit = (e) => {
     e.preventDefault();
-    if (addCategory === "") {
-      setDisplayError("Category cannot be None");
-    } else {
-      const data = {
-        name: addTitle,
-        text: addText,
-        category: addCategory,
-        owner: params.userId,
-      };
-
-      dispatch(addPost(data));
-      // reset all the input to empty
-      setAddTitle("");
-      setAddText("");
-      setAddCategory("");
-    }
+    const data = {
+      name: addName,
+      text: addText,
+      category: addCategory,
+      owner: params.userId,
+    };
+    console.log(data);
+    dispatch(addPost(data));
   };
 
-  const handleChange = (e) => {
-    setAddText(e.target.value);
+  const handleChange = (e, editor) => {
+    const data = editor.getData();
+    setAddText(data);
   };
 
-  const handleTitleChange = (e) => {
-    setAddTitle(e.target.value);
+  const handleNameChange = (e) => {
+    setAddName(e.target.value);
   };
 
   const handleCategoryChange = (e) => {
-    setDisplayError(null);
     setAddCategory(e.target.value);
   };
 
   return (
     <div>
       <form onSubmit={submit}>
-        {
+        {!addedData ? (
           <div>
             <select
               id=""
               className="form-control"
               onChange={handleCategoryChange}
             >
-              <option value="None" selected>
-                None Selected{" "}
-              </option>
-              {params.allcategory && params.allcategory.length >= 0
-                ? params.allcategory.map((category) => (
-                    <option key={category._id} value={category._id}>
-                      {category.name}
-                    </option>
-                  ))
-                : "No category added yet"}
+              {params.allcategory.map((category) => (
+                <option key={category._id}>{category.name}</option>
+              ))}
             </select>
-            {displayError ? (
-              <div className="text-danger text-center">{displayError} </div>
-            ) : null}
             <input
               type="text"
               name="name"
-              required
               placeholder="Enter title here"
               className="form-control my-3 p-4"
-              onChange={handleTitleChange}
+              onChange={handleNameChange}
             />
-            <textarea
-              required
-              rows="24"
-              maxLength="5000"
-              className="form-control "
+            <CKEditor
+              editor={ClassicEditor}
+              data={addText}
               onChange={handleChange}
-            ></textarea>
+            />
           </div>
-        }
+        ) : (
+          <div className="ck-editor__editable mt-4">
+            {addedData ? ReactHtmlParser(addText) : null}
+          </div>
+        )}
         <div className="d-flex justify-content-between">
+          <button
+            className="form-control my-3 w-25 bg-dark text-light"
+            onClick={() => setAddedData(!addedData)}
+            data-toggle="modal"
+            data-target=".bd-example-modal-lg"
+            type="button"
+          >
+            {addedData ? "View form" : "Preview"}
+          </button>
           <button
             className="form-control my-3 w-25 bg-dark text-light"
             type="submit"

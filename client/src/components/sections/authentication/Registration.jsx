@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
@@ -6,73 +7,65 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 
-import Avatar from "@material-ui/core/Avatar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 import "../../../assets/css/Login.css";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { registerUser } from "../../../store/actions/authActions";
 import { useSelector, useDispatch } from "react-redux";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="#">
-        Baron Chibuikem
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100vh",
+    width: "100%",
   },
-  image: {
-    backgroundSize: "cover",
-    backgroundPosition: "center",
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    // flexBasis: "33.33%",
+    flexShrink: 0,
+    color: "white",
   },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    paddingTop: "20%",
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
   },
-  avatar: {
+  backgroundColor: {
+    backgroundColor: "green",
+  },
+  paddingBottom: {
+    marginBottom: "10px",
+  },
+  formControl: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    minWidth: 120,
   },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
+  selectEmpty: {
+    marginTop: theme.spacing(2),
   },
 }));
-
-
 
 export default function Register() {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+  const [team, setTeam] = useState("");
+  const [subTeam, setSubTeam] = useState("");
+
+  const handleTeamChange = (event) => {
+    setTeam(event.target.value);
+  };
+
+  const handleSubTeamChange = (event) => {
+    setSubTeam(event.target.value);
+  };
 
   const { register, handleSubmit, errors, watch } = useForm();
 
   // Here we are instantiating our dispatch action
   const dispatch = useDispatch();
-
-  const send_history = useHistory()
 
   // This is used to dispatch a redux action with the needed registration data
   const regSubmit = (data) => {
@@ -84,63 +77,47 @@ export default function Register() {
   };
 
   const params = useSelector((state) => ({
-    registered: state.authentication.registered
+    authenticated: state.authentication.isAuthenticated,
   }));
   // Here we are checking if our authenticated value from the state is true, it yes we redirect to the homepage
-  if (params.registered) {
-    send_history.push("/login")
+  if (params.authenticated) {
+    return <Redirect to="/" />;
   }
 
   return (
-    <Grid container component="main" className={classes.root}>
-      <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className="center-content">
-        <h3 className="container text-center">
-          <u>
-            JotterNote is a powerful note and record keeping appplication,
-            <br /> focused on helping you
-          </u>
-        </h3>
-        <ul className="list-unstyled h4 my-3">
-          <li className="my-2">
-            <i className="fa fa-check mr-3" aria-hidden="true"></i>
-            Organize your information
-          </li>
-          <li className="my-2">
-            <i class="fa fa-check mr-3" aria-hidden="true"></i>Interact with
-            others
-          </li>
-          <li className="my-2">
-            <i class="fa fa-check mr-3" aria-hidden="true"></i>Share your notes
-            with us
-          </li>
-          <li className="my-2">
-            <i class="fa fa-check mr-3" aria-hidden="true"></i>Create and keep a
-            record of everything
-          </li>
-        </ul>
-      </Grid>
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Register
-          </Typography>
-          <form
-            className={classes.form}
-            noValidate
-            onSubmit={handleSubmit(regSubmit)}
-          >
+    <div
+      style={{
+        backgroundColor: "#282c34",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Card
+        className={classes.root}
+        className="container col-md-4 py-5 col-sm-12 sm-screen"
+      >
+        <form onSubmit={handleSubmit(regSubmit)}>
+          <CardContent>
+            <Typography
+              class="text-uppercase text-center font-weight-bold"
+              style={{ fontSize: "20px" }}
+            >
+              Sign up
+            </Typography>
             {/* Enter your first name */}
+
+            <Typography className={classes.heading}>First Name</Typography>
 
             <TextField
               id="outlined-basic"
-              label="first name"
+              label="Enter your first name here"
               variant="outlined"
+              className={classes.root}
               inputRef={register({ required: true })}
-              name="firstName"
+              name="name"
               fullWidth
             />
             <h6 className="text-left font-italic text-danger">
@@ -151,13 +128,14 @@ export default function Register() {
 
             {/* Enter your last name */}
 
+            <Typography className={classes.heading}>Last Name</Typography>
             <TextField
               id="outlined-basic"
-              label="last name"
-              margin="normal"
+              label="Enter your First Name here"
               variant="outlined"
+              className={classes.root}
               inputRef={register({ required: true })}
-              name="lastName"
+              name="name"
               fullWidth
             />
             <h6 className="text-left font-italic text-danger">
@@ -168,10 +146,12 @@ export default function Register() {
 
             {/* Enter your email */}
 
+            <Typography className={classes.heading}>Email</Typography>
             <TextField
               id="outlined-basic"
               label="Enter your email here"
               variant="outlined"
+              className={classes.root}
               fullWidth
               inputRef={register({ required: true })}
               name="email"
@@ -183,17 +163,57 @@ export default function Register() {
               )}
             </h6>
 
+            {/* Department Role */}
+            <FormControl variant="outlined" className={classes.root}>
+              <InputLabel id="">Team</InputLabel>
+              <Select
+                value={team}
+                onChange={handleTeamChange}
+                label="Team"
+                inputRef={register({ required: true })}
+                name="Team"
+              >
+                <MenuItem value={5}>IT and Design</MenuItem>
+                <MenuItem value={10}>Human Resoure</MenuItem>
+                <MenuItem value={20}>Project Management</MenuItem>
+                <MenuItem value={30}>Business Development</MenuItem>
+                <MenuItem value={40}>Office Admin</MenuItem>
+                <MenuItem value={50}>Support Staff</MenuItem>
+              </Select>
+            </FormControl>
+
+            {/* Department unit */}
+            <FormControl variant="outlined" className={classes.root}>
+              <InputLabel id="demo-simple-select-outlined-label">
+                Department Name
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={subTeam}
+                onChange={handleSubTeamChange}
+                label="Department Name"
+              >
+                <MenuItem value={5}>Frontend Developer</MenuItem>
+                <MenuItem value={10}>Backend Developer</MenuItem>
+                <MenuItem value={20}>IT Support</MenuItem>
+                <MenuItem value={30}>Design Team</MenuItem>
+                <MenuItem value={40}>Human Resource</MenuItem>
+                <MenuItem value={50}>Finance Assistant</MenuItem>
+              </Select>
+            </FormControl>
+
             {/* Enter your password */}
 
+            <Typography className={classes.heading}>Password</Typography>
             <TextField
               id="outlined-basic"
               label="Enter your password"
               variant="outlined"
+              className={classes.root}
               inputRef={register({ required: true })}
               name="password"
               type="password"
-              fullWidth
-              className="my-2"
             />
             <h6 className="text-left font-italic text-danger">
               {errors.password && errors.password.type === "required" && (
@@ -203,6 +223,9 @@ export default function Register() {
 
             {/* password confirmation */}
 
+            <Typography className={classes.heading}>
+              Confirm Password
+            </Typography>
             <h6 className="text-left font-italic text-danger">
               {errors.password2 && errors.password2.type === "validate" && (
                 <p>Passwords don't match</p>
@@ -213,7 +236,7 @@ export default function Register() {
               label="Confirm your password"
               variant="outlined"
               name="password2"
-              fullWidth
+              className={classes.root}
               inputRef={register({
                 required: true,
                 validate: (value) => {
@@ -227,30 +250,33 @@ export default function Register() {
                 <p>Please confirm your password</p>
               )}
             </h6>
-            <Button
-              disableElevation
-              className="mx-auto px-5 col-sm-12 p-3 text-light"
-              type="submit"
-              style={{ backgroundColor: "green" }}
-            >
-              {/* {params.status ? (
+            <CardActions>
+              <Button
+                disableElevation
+                className="mx-auto px-5 col-sm-12 p-3 text-light"
+                type="submit"
+                style={{ backgroundColor: "green" }}
+              >
+                {/* {params.status ? (
                   <div>
                     <span>Loading</span>
                   </div>
                 ) : (
                   "Register"
                 )} */}
-              Register
-            </Button>
-
-            <h6 className="text-center mt-3">
-              <Link exact to="/login" variant="body2">
-                Already registered? then click here to Login now
-              </Link>
+                Login
+              </Button>
+            </CardActions>
+            <h6 className="text-center">
+              Already registered? then click{" "}
+              <Link exact to="/login">
+                here
+              </Link>{" "}
+              to Login now
             </h6>
-          </form>
-        </div>
-      </Grid>
-    </Grid>
+          </CardContent>
+        </form>
+      </Card>
+    </div>
   );
 }

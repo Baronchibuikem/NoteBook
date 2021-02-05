@@ -1,4 +1,4 @@
-/* @media (max-width: 600px) {
+@media (max-width: 600px) {
   .container {
     height: 100vh;
     border: 3px;
@@ -45,24 +45,4 @@ input {
   color: #666;
   z-index: 9999;
   user-select: none;
-} */
-
-.center-content {
-  height: 100vh;
-  border: 3px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #282c34 !important;
-  color: white !important;
 }
-
-/* style={{
-  backgroundColor: "#282c34",
-  minHeight: "100vh",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center", */

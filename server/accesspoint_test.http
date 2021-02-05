@@ -1,0 +1,75 @@
+# For making a post request to login a user
+POST http://localhost:5000/api/users/login
+content-type: application/json
+
+{
+    "email": "warri2@gmail.com",
+    "password": "admin12345"
+}
+
+###
+
+# For making request to get all the user's on the database
+GET http://localhost:5000/api/users/
+Content-Type: application/json
+
+###
+
+#For getting user by id
+GET http://localhost:5000/api/users/5ff47dc8f4e29d970f27f54b
+Content-Type: application/json
+
+###
+
+# For registering a user into the database
+POST http://localhost:5000/api/users/register
+Content-Type: application/json
+
+{
+  "firstName": "Priye",
+  "lastName": "Obaremi",
+  "email": "priyeobi@gmail.com",
+  "password": "admin12345",
+  "password2": "admin12345"
+}
+
+###
+
+#For deleting a user
+DELETE http://localhost:5000/api/users/5faa703494ecb24484934df3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOWU3ZDhiMzE1YmI5MGY4NDI4OTNhZSIsImVtYWlsIjoicGFzdG9yQGdtYWlsLmNvbSIsImlhdCI6MTYwNTAwNjEwMCwiZXhwIjoxNjA1MDI3NzAwfQ.4PKxUP_Yzhb8fdiGPTcsPvuqOaaUyoWae8JWKlqs-4E
+
+###
+
+# For adding a Category 
+POST http://localhost:5000/api/posts/category
+Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ3ZGM4ZjRlMjlkOTcwZjI3ZjU0YiIsImVtYWlsIjoicHJpeWVvYmlAZ21haWwuY29tIiwiaWF0IjoxNjA5OTI3MjMyLCJleHAiOjE2MDk5NDg4MzJ9.DtQlZDo2ffLM6uaI154rvJnq90rW2hlhEqAG06Lr5RY
+
+{
+    "name": "Learning Phase"
+}
+
+
+###
+
+# For adding a Post 
+POST http://localhost:5000/api/posts
+Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ4MzFhZjEyZmQ3YTAxMjU0ZjkzMiIsImVtYWlsIjoid2FycmkyQGdtYWlsLmNvbSIsImlhdCI6MTYxMDAxMTM0OSwiZXhwIjoxNjEwMDMyOTQ5fQ.tfJXiijwr5tYktepSdIyVmHHPw5m7sA14DMHeFmdcL8
+
+{
+    "name": "About Organization",
+    "text": "What is DHIStance? DHIStance is the fastest",
+    "category": "5ff5cdb838835962e23ab00e",
+    "draft": true,
+    "owner": "5ff47dc8f4e29d970f27f54b"   
+}
+
+###
+
+# For listening all post
+GET http://localhost:5000/api/posts
+Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ4MzFhZjEyZmQ3YTAxMjU0ZjkzMiIsImVtYWlsIjoid2FycmkyQGdtYWlsLmNvbSIsImlhdCI6MTYxMDAxNjE1OSwiZXhwIjoxNjEwMDM3NzU5fQ.OuCtck01fRkBGDc7hKJxuDK_v2LvxzR8B19bfZJxWIE

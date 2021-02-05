@@ -79,7 +79,10 @@ export default function Navbar() {
             </ListItem>
           </Link>
           <hr className="bg-light" />
-          <Link to="/faq" className="text-light pollhover text-decoration-none">
+          <Link
+            to="/profile"
+            className="text-light pollhover text-decoration-none"
+          >
             <ListItem button>
               <ListItemIcon></ListItemIcon>
               <ListItemText>How to</ListItemText>
@@ -166,7 +169,7 @@ export default function Navbar() {
         ))}
         <Typography variant="h6" className="mr-auto ml-3 content-size">
           Hi {params.user.firstName} {""} {params.user.lastName} {""}welcome to
-          your JotterNote
+          your daily DraftIt application
         </Typography>
       </Toolbar>
     </AppBar>
