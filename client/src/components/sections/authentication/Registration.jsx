@@ -72,6 +72,8 @@ export default function Register() {
   // Here we are instantiating our dispatch action
   const dispatch = useDispatch();
 
+  const send_history = useHistory()
+
   // This is used to dispatch a redux action with the needed registration data
   const regSubmit = (data) => {
     dispatch(
@@ -86,7 +88,7 @@ export default function Register() {
   }));
   // Here we are checking if our authenticated value from the state is true, it yes we redirect to the homepage
   if (params.registered) {
-    return <Redirect to="/login" />;
+    send_history.push("/login")
   }
 
   return (

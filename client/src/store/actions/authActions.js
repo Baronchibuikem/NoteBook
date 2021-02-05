@@ -1,7 +1,7 @@
 import setAuthToken from "../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import { route } from "../api_calls";
-import { GET_ERRORS, SET_CURRENT_USER, SET_USER_TOKEN } from "./action_types";
+import { GET_ERRORS, SET_CURRENT_USER, SET_USER_TOKEN, SET_CURRENT_DETAIL } from "./action_types";
 
 // Register User action
 export const registerUser = (params) => async (dispatch) => {
@@ -15,7 +15,7 @@ export const registerUser = (params) => async (dispatch) => {
       password2,
     });
     if (response) {
-      dispatch({ type: SET_CURRENT_USER, payload: response.data });
+      dispatch({ type: SET_CURRENT_USER });
     }
   } catch (error) {
     dispatch({
@@ -54,7 +54,7 @@ export const loginUser = (userData) => {
 // Set logged in user
 export const setCurrentUser = (decoded) => {
   return {
-    type: SET_CURRENT_USER,
+    type: SET_CURRENT_DETAIL,
     payload: decoded,
   };
 };
