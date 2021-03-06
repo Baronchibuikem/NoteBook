@@ -1,7 +1,7 @@
 {
-  "name": "officemanagement",
+  "name": "JotterNote",
   "version": "1.0.0",
-  "description": "Office management web app",
+  "description": "JotterNote API",
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",

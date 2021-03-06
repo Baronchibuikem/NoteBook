@@ -3,6 +3,8 @@ const db = require("../config/keys").mongoURI;
 
 // connection to mongodb with mongodb uri defined in our config file
 const connectDB = async () => {
+  console.log("running connection.......", db);
+
   try {
     const conn = await mongoose.connect(db, {
       useNewUrlParser: true,
