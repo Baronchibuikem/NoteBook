@@ -12,12 +12,14 @@ content-type: application/json
 # For making request to get all the user's on the database
 GET http://localhost:5000/api/v1/users/
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByaXllb2JpQGdtYWlsLmNvbSIsImFjdGl2ZSI6ZmFsc2UsInVzZXJJZCI6IjYwOTAwNjEwZGUyNzljYWQ5YzRhZTc3NyIsImZpcnN0TmFtZSI6IlByaXllIiwibGFzdE5hbWUiOiJPYmFyZW1pIiwiaWF0IjoxNjIwMDUyNDIxLCJleHAiOjE2MjAxMzg4MjF9.ySMGcLJRDj1KId7SL9onqNBWNKSYuvVTRuB3YqgZ9-Q
 
 ###
 
 #For getting user by id
-GET http://localhost:5000/api/users/5ff47dc8f4e29d970f27f54b
+GET http://localhost:5000/api/v1/user/60900610de279cad9c4ae777
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByaXllb2JpQGdtYWlsLmNvbSIsImFjdGl2ZSI6ZmFsc2UsInVzZXJJZCI6IjYwOTAwNjEwZGUyNzljYWQ5YzRhZTc3NyIsImZpcnN0TmFtZSI6IlByaXllIiwibGFzdE5hbWUiOiJPYmFyZW1pIiwiaWF0IjoxNjIwMDUyNDIxLCJleHAiOjE2MjAxMzg4MjF9.ySMGcLJRDj1KId7SL9onqNBWNKSYuvVTRuB3YqgZ9-Q
 
 ###
 
@@ -26,18 +28,18 @@ POST http://localhost:5000/api/v1/register
 Content-Type: application/json
 
 {
-  "firstName": "Priye",
-  "lastName": "Obaremi",
-  "email": "priyeobi@gmail.com",
+  "firstName": "Dobo",
+  "lastName": "Okaja",
+  "email": "dumebi@gmail.com",
   "password": "admin12345"
 }
 
 ###
 
 #For deleting a user
-DELETE http://localhost:5000/api/users/5faa703494ecb24484934df3
+DELETE http://localhost:5000/api/v1/user/delete/60900e41d46aa9b5d85a89b8
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOWU3ZDhiMzE1YmI5MGY4NDI4OTNhZSIsImVtYWlsIjoicGFzdG9yQGdtYWlsLmNvbSIsImlhdCI6MTYwNTAwNjEwMCwiZXhwIjoxNjA1MDI3NzAwfQ.4PKxUP_Yzhb8fdiGPTcsPvuqOaaUyoWae8JWKlqs-4E
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByaXllb2JpQGdtYWlsLmNvbSIsImFjdGl2ZSI6ZmFsc2UsInVzZXJJZCI6IjYwOTAwNjEwZGUyNzljYWQ5YzRhZTc3NyIsImZpcnN0TmFtZSI6IlByaXllIiwibGFzdE5hbWUiOiJPYmFyZW1pIiwiaWF0IjoxNjIwMDUyNDIxLCJleHAiOjE2MjAxMzg4MjF9.ySMGcLJRDj1KId7SL9onqNBWNKSYuvVTRuB3YqgZ9-Q
 
 ###
 
