@@ -1,5 +1,5 @@
 # For making a post request to login a user
-POST http://localhost:5000/api/users/login
+POST http://localhost:5000/api/v1/login
 content-type: application/json
 
 {
@@ -10,7 +10,7 @@ content-type: application/json
 ###
 
 # For making request to get all the user's on the database
-GET http://localhost:5000/api/users/
+GET http://localhost:5000/api/v1/users/
 Content-Type: application/json
 
 ###
@@ -22,15 +22,14 @@ Content-Type: application/json
 ###
 
 # For registering a user into the database
-POST http://localhost:5000/api/users/register
+POST http://localhost:5000/api/v1/register
 Content-Type: application/json
 
 {
   "firstName": "Priye",
   "lastName": "Obaremi",
   "email": "priyeobi@gmail.com",
-  "password": "admin12345",
-  "password2": "admin12345"
+  "password": "admin12345"
 }
 
 ###

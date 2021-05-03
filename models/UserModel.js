@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import bcrypt from "bcryptjs";
+
+const { Schema } = mongoose;
 const validator = require("validator");
 
 // Create user Schema
-const UserSchema = new Schema({
+const userSchema = new Schema({
   firstName: {
     type: String,
     required: true,
@@ -29,11 +31,40 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  active: {
+    type: Boolean,
+    default: false,
+  },
   date: {
     type: Date,
     default: Date.now,
   },
 });
 
-const User = mongoose.model("user", UserSchema);
-module.exports = User;
+userSchema.pre("save", function (next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
+  bcrypt.hash(this.password, 9, (err, hash) => {
+    if (err) {
+      return next(err);
+    }
+
+    this.password = hash;
+    next();
+  });
+});
+
+userSchema.methods.checkPassword = function (password) {
+  const passwordHash = this.password;
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(password, passwordHash, (err, same) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(same);
+    });
+  });
+};
+
+export default mongoose.model("user", userSchema);

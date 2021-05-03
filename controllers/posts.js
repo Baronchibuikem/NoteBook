@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const keys = require("../../config/keys");
+const keys = require("../config/keys");
 const passport = require("passport");
 // Load user model
-const Category = require("../../models/Category");
-const Post = require("../../models/Post");
+const Category = require("../models/Category");
+const Post = require("../models/Post");
 
 // for getting all the post the current logged in user created
 router.get(

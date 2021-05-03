@@ -1,38 +1,81 @@
-const dotenv = require("dotenv");
-dotenv.config();
-const express = require("express");
-const bodyParser = require("body-parser");
-const passport = require("passport");
-const path = require("path");
-const cors = require("cors");
-const users = require("./routes/api/users");
-const posts = require("./routes/api/posts");
+import express from "express";
+import mongoose from "mongoose";
+import { json, urlencoded } from "body-parser";
+import path from "path";
+import cors from "cors";
+import * as Sentry from "@sentry/node";
+import * as Tracing from "@sentry/tracing";
+import morgan from "morgan";
+import "dotenv/config";
+import router from "./routes/router";
 // For swagger ui documentation
-const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("./swagger.json");
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger.json";
 
-const app = express();
+const dbName = process.env.MONGO_URI_FOR_DEVELOPMENT;
 
-// Middlewares
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use(cors());
+const connectDB = async () => {
+  console.log("running connection....... for ", dbName);
 
-// Connect to MongoDB
+  try {
+    const conn = await mongoose.connect(dbName, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      useCreateIndex: true,
+    });
+    // eslint-disable-next-line no-console
+    console.log(`mongodb connected: ${conn.connection.host}`);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error(`Database error ${err.message}`);
+    process.exit(1);
+  }
+};
 
-const connectDB = require("./db/connection");
 connectDB();
 
-app.use(passport.initialize());
-// Passport Config
-require("./config/passport")(passport);
+const app = express();
+app.use(json({ limit: "50mb" }));
+app.use(urlencoded({ limit: "50mb", extended: false }));
+app.use(
+  cors({
+    origin: "*",
+    optionsSuccessStatus: 200,
+  })
+);
 
-// import routes
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
+
+app.get("/", (req, res) =>
+  res.json({
+    message: "Welcome to the JotterApp Server Apis",
+  })
+);
+
 // Api Routes
-app.use("/api/users", users);
-app.use("/api/posts", posts);
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api/v1", router);
+// eslint-disable-next-line no-unused-vars
+app.use((error, req, res, next) => {
+  Sentry.configureScope((scope) => {
+    scope.setTag("user", req.userData ? req.userData : "");
+    scope.setUser({
+      email: req.userData && req.userData.email ? req.userData.email : "",
+      phone: req.userData && req.userData.phone ? req.userData.phone : "",
+    });
+  });
+  console.log(error);
+  Sentry.captureException(error.error);
+  res.status(500).json({
+    message: error.message,
+  });
+});
+
+// eslint-disable-next-line no-unused-vars
 if (process.env.NODE_ENV === "production") {
   // For serving my react client build index file
   app.use(express.static(path.join(__dirname, "client", "build")));
@@ -43,5 +86,5 @@ if (process.env.NODE_ENV === "production") {
 
 // declaring port
 const port = process.env.PORT;
-
+// eslint-disable-next-line no-console
 app.listen(port, () => console.log(`Server running on port ${port}`));
