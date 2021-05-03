@@ -6,7 +6,11 @@ import {
   getUserById,
   deleteUser,
 } from "../controllers/users";
-import { getAllCurrentUserPost, addPost } from "../controllers/posts";
+import {
+  getAllCurrentUserPost,
+  addPost,
+  addCategory,
+} from "../controllers/posts";
 import { auth } from "../utils/auth";
 
 const router = express.Router();
@@ -19,7 +23,8 @@ router.get("/user/:userId", auth, getUserById);
 router.delete("/user/delete/:userId", auth, deleteUser);
 
 // for managing post
-router.get("/user/:username/posts", auth, getAllCurrentUserPost);
-router.post("/user/addpost", auth, addPost);
+router.get("/posts", auth, getAllCurrentUserPost);
+router.post("/post/addpost", auth, addPost);
+router.post("/addCategory", auth, addCategory);
 
 export default router;

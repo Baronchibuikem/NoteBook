@@ -22,7 +22,6 @@ export const getAllCurrentUserPost = async (req, res, next) => {
 
 // for adding a new post
 export const addPost = async (req, res, next) => {
-  console.log(req.body);
   const { text, name, category, owner } = req.body;
 
   try {
@@ -43,18 +42,26 @@ export const addPost = async (req, res, next) => {
   }
 };
 
-// // For creating a category
-// router.post(
-//   "/category",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     const newCategory = new Category({
-//       name: req.body.name,
-//       user: req.user.id,
-//     });
-//     newCategory.save().then((category) => res.json(category));
-//   }
-// );
+// for adding a new category
+export const addCategory = async (req, res, next) => {
+  const { name } = req.body;
+  const { userId } = req.userData;
+
+  try {
+    const newCategory = await Category.create({
+      user: userId,
+      name: name,
+    });
+    return res.status(201).json({
+      message: "successfully added new post",
+      data: newCategory,
+    });
+  } catch (error) {
+    return next({
+      error: error,
+    });
+  }
+};
 
 // // For fetching post created by the logged in user
 // router.get(
