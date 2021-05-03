@@ -63,9 +63,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjQ3ZGM4Z
 ###
 
 # For adding a Post 
-POST http://localhost:5000/api/posts
+POST http://localhost:5000/api/v1/user/addpost
 Content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDk2YWM0NTBiZGJmMWJhMzA5YzFlZiIsImZpcnN0TmFtZSI6IkN5bnRoaWEiLCJsYXN0TmFtZSI6Ik9rZWtlIiwiZW1haWwiOiJva2VrZUBnbWFpbC5jb20iLCJhZG1pbiI6ZmFsc2UsImlhdCI6MTYxMTI2NDY4MSwiZXhwIjoxNjExMjg2MjgxfQ.IWVpMxcC71JonowksthoVE3xMyzduQqqCH3MCMYRZxU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByaXllb2JpQGdtYWlsLmNvbSIsImFjdGl2ZSI6ZmFsc2UsInVzZXJJZCI6IjYwOTAwNjEwZGUyNzljYWQ5YzRhZTc3NyIsImZpcnN0TmFtZSI6IlByaXllIiwibGFzdE5hbWUiOiJPYmFyZW1pIiwiaWF0IjoxNjIwMDUyNDIxLCJleHAiOjE2MjAxMzg4MjF9.ySMGcLJRDj1KId7SL9onqNBWNKSYuvVTRuB3YqgZ9-Q
 
 {
     "name": "About Organization",
@@ -78,9 +78,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDk2YWM0N
 ###
 
 # For listening all post
-GET http://localhost:5000/api/posts
+GET http://localhost:5000/api/v1/user/baron/posts
 Content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDlmNjAwY2FlZGViOTBkNjRkM2JmZSIsImZpcnN0TmFtZSI6IkFkbWluIiwibGFzdE5hbWUiOiJCYXJvbiIsImVtYWlsIjoicHJpeWVvYmlAZ21haWwuY29tIiwiYWRtaW4iOmZhbHNlLCJpYXQiOjE2MTEyNjYyOTAsImV4cCI6MTYxMTI4Nzg5MH0.4Q7v4Vqli9iSk5G7DyYin0lgNGfVwKVxkUUHZLRVEYk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByaXllb2JpQGdtYWlsLmNvbSIsImFjdGl2ZSI6ZmFsc2UsInVzZXJJZCI6IjYwOTAwNjEwZGUyNzljYWQ5YzRhZTc3NyIsImZpcnN0TmFtZSI6IlByaXllIiwibGFzdE5hbWUiOiJPYmFyZW1pIiwiaWF0IjoxNjIwMDUyNDIxLCJleHAiOjE2MjAxMzg4MjF9.ySMGcLJRDj1KId7SL9onqNBWNKSYuvVTRuB3YqgZ9-Q
+
+
 ####
 
 GET http://localhost:5000/api/posts/60095bde8d960ad8ea5d0419
