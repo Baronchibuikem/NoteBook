@@ -10,6 +10,9 @@ import {
   getAllCurrentUserPost,
   addPost,
   addCategory,
+  getCategory,
+  getUserPostbyId,
+  deletePost,
 } from "../controllers/posts";
 import { auth } from "../utils/auth";
 
@@ -26,5 +29,8 @@ router.delete("/user/delete/:userId", auth, deleteUser);
 router.get("/posts", auth, getAllCurrentUserPost);
 router.post("/post/addpost", auth, addPost);
 router.post("/addCategory", auth, addCategory);
+router.get("/categories", auth, getCategory);
+router.get("/post/:userId", auth, getUserPostbyId);
+router.delete("/post/delete/:id", auth, deletePost);
 
 export default router;
