@@ -36,14 +36,14 @@ export const auth = async (req, res, next) => {
       : "";
 
     const decoded = await verifyToken(token);
-
-    if (decoded && decoded.active) {
-      req.userData = decoded;
-    } else {
-      return res.status(401).json({
-        message: "User is not Active",
-      });
-    }
+    req.userData = decoded;
+    // if (decoded && decoded.active) {
+    //   req.userData = decoded;
+    // } else {
+    //   return res.status(401).json({
+    //     message: "User is not Active",
+    //   });
+    // }
   } catch (error) {
     return res.status(401).json({
       message: "User Authentication Failed",

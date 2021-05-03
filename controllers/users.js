@@ -5,15 +5,10 @@ import UserModel from "../models/UserModel";
 import validateRegisterInput from "../validations/register";
 import validateLoginInput from "../validations/login";
 
+// for registering a user
 export const register = async (req, res, next) => {
-  // const { errors, isValid } = validateRegisterInput(req.body);
   try {
     const { email, firstName, lastName, password } = req.body;
-
-    // Check Validation
-    // if (!isValid) {
-    //   return res.status(400).json(errors);
-    // }
 
     const userExist = await UserModel.findOne({ email: req.body.email });
 
@@ -55,6 +50,7 @@ export const register = async (req, res, next) => {
   }
 };
 
+// for authenticating and login a user in
 export const login = async (req, res, next) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
@@ -106,59 +102,63 @@ export const login = async (req, res, next) => {
   }
 };
 
-// // For getting all user's in the database
-// router.get("/", (req, res) => {
-//   const errors = {};
-//   User.find()
-//     .then((users) => {
-//       if (!users) {
-//         errors.user_not_found = "User's not found";
-//         return res.status(400).json(errors);
-//       }
-//       res.json(users);
-//     })
-//     .catch((err) => res.status(404).json({ users: "User's not found" }));
-// });
+// for getting all the user in the database
+export const getAllUsers = async (req, res, next) => {
+  let errors = {};
+  try {
+    const users = await UserModel.find();
+    if (!users) {
+      errors.user_not_found = "No registered user's found";
+      return res.status(400).json(errors);
+    }
 
-// // Get a single user by id from the database
-// router.get("/:user_id", (req, res) => {
-//   console.log(req.params.user_id);
-//   const errors = {};
-//   User.findById({ _id: req.params.user_id })
-//     .then((user) => {
-//       if (!user) {
-//         errors.user_not_found = "User not found";
-//         return res.status(400).json({
-//           errors,
-//         });
-//       }
-//       res.json(user);
-//     })
-//     .catch((error) => {
-//       res.status(400).json({
-//         user: "user not found",
-//       });
-//     });
-// });
+    return res.status(200).json({
+      data: users,
+      message: "success",
+    });
+  } catch (error) {
+    return next({
+      error: error,
+    });
+  }
+};
 
-// // For deleting a single user
-// router.delete(
-//   "/:id",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     const id = req.params.id;
-//     User.findByIdAndRemove(id, function (err, done) {
-//       if (err) {
-//         res.status(400).json({
-//           not_deleted: "User could not be deleted",
-//         });
-//       } else {
-//         res.status(200).json({
-//           user_deleted: "User successfully deleted",
-//         });
-//       }
-//     });
-//   }
-// );
+// for getting a user by id
+export const getUserById = async (req, res, next) => {
+  let errors = {};
+  const { userId } = req.params;
+  try {
+    const user = await UserModel.findById({ _id: userId });
+    if (!user) {
+      errors.user_not_found = "User not found";
+      return res.status(400).json({
+        errors,
+      });
+    }
+    return res.status(200).json({
+      data: user,
+      message: "success",
+    });
+  } catch (error) {
+    return next({
+      error: error,
+    });
+  }
+};
 
-// module.exports = router;
+// for deleting a user from the database
+export const deleteUser = async (req, res, next) => {
+  let errors = {};
+  const { userId } = req.params;
+  try {
+    const user = await UserModel.findByIdAndRemove({ _id: userId });
+
+    return res.status(200).json({
+      message: "successfully deleted",
+    });
+  } catch (error) {
+    return next({
+      error: error,
+    });
+  }
+};
