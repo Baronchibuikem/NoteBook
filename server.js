@@ -65,7 +65,6 @@ app.use((error, req, res, next) => {
     scope.setTag("user", req.userData ? req.userData : "");
     scope.setUser({
       email: req.userData && req.userData.email ? req.userData.email : "",
-      phone: req.userData && req.userData.phone ? req.userData.phone : "",
     });
   });
   console.log(error);

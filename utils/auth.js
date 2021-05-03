@@ -18,14 +18,14 @@ export const newToken = (user) =>
     }
   );
 
-export const verifyToken = (token) => {
+export const verifyToken = async (token) => {
   // we are verifying the token to ensure it is valid
-  new Promise((resolve, reject) => {
-    jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
-      if (error) return reject(error);
-      resolve(payload);
-    });
-  });
+  try {
+    const verified = await jwt.verify(token, process.env.JWT_SECRET);
+    return verified;
+  } catch (error) {
+    return error;
+  }
 };
 
 // for authenticating a user
@@ -36,14 +36,9 @@ export const auth = async (req, res, next) => {
       : "";
 
     const decoded = await verifyToken(token);
-    req.userData = decoded;
-    // if (decoded && decoded.active) {
-    //   req.userData = decoded;
-    // } else {
-    //   return res.status(401).json({
-    //     message: "User is not Active",
-    //   });
-    // }
+    if (decoded) {
+      req.userData = decoded;
+    }
   } catch (error) {
     return res.status(401).json({
       message: "User Authentication Failed",
