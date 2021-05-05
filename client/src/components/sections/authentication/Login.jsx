@@ -1,20 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { useHistory, Link, Redirect } from "react-router-dom";
+import { toast } from "react-toastify";
 import "../../../assets/css/Login.css";
-import { Link, Redirect } from "react-router-dom";
 import { loginUser } from "../../../store/actions/authActions";
 
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
+
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 
 function Copyright() {
   return (
@@ -57,28 +61,53 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+const Login = () => {
   const classes = useStyles();
 
   // Here we are instantiating our dispatch action
   const dispatch = useDispatch();
+  const history = useHistory();
 
   // hooks form
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, watch, reset } = useForm({
+    mode: "all",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-  // this is used to dispatch a redux action with the neeeded login data
-  const regSubmit = (data) => {
-    dispatch(loginUser({ email: data.email, password: data.password }));
-  };
+  const [loading, setLoading] = useState(false);
+
+  const values = watch();
 
   const params = useSelector((state) => ({
     errors: state.error_reducer.error,
-    isAuthenticated: state.authentication.isAuthenticated,
   }));
 
-  if (params.isAuthenticated === true) {
-    return <Redirect to="/" />;
-  }
+  // this is used to dispatch a redux action with the neeeded login data
+  const regSubmit = (data) => {
+    setLoading(true);
+    dispatch(
+      loginUser(data, history, (data, error) => {
+        if (error) {
+          toast.error(
+            error &&
+              error.response &&
+              error.response.data &&
+              error.response.data.message
+              ? error.response.data.message
+              : "Error in connection"
+          );
+        } else {
+          toast.success(data);
+        }
+
+        setLoading(false);
+        reset();
+      })
+    );
+  };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -107,6 +136,7 @@ export default function Login() {
               fullWidth
               label="Email Address"
               name="email"
+              value={values.email}
               autoComplete="email"
               inputRef={register({ required: true })}
               type="email"
@@ -125,6 +155,7 @@ export default function Login() {
               label="Password"
               type="password"
               id="password"
+              value={values.password}
               autoComplete="current-password"
               inputRef={register({ required: true })}
             />
@@ -139,14 +170,13 @@ export default function Login() {
               type="submit"
               style={{ backgroundColor: "green" }}
             >
-              {/* {params.status ? (
-                  <div>
-                    <span>Loading</span>
-                  </div>
-                ) : (
-                  "Register"
-                )} */}
-              Login
+              {loading ? (
+                <div>
+                  <span>Loading...</span>
+                </div>
+              ) : (
+                "Login"
+              )}
             </Button>
             <Grid container>
               {/* <Grid item xs>
@@ -169,4 +199,6 @@ export default function Login() {
       </Grid>
     </Grid>
   );
-}
+};
+
+export default Login;
