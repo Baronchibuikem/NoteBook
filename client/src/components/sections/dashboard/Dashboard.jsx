@@ -129,17 +129,19 @@ function Dashboard() {
               </div>
             </div>
 
-            {params.allpost.map((post) => (
-              <div key={post._id}>
-                <Card
-                  text={post.text}
-                  category={post.category.name}
-                  name={post.name}
-                  id={post._id}
-                  click={get_post}
-                />
-              </div>
-            ))}
+            {Array.isArray(params.allpost) && params.allpost.length
+              ? params.allpost.map((post) => (
+                  <div key={post._id}>
+                    <Card
+                      text={post.text}
+                      category={post.category.name}
+                      name={post.name}
+                      id={post._id}
+                      click={get_post}
+                    />
+                  </div>
+                ))
+              : ""}
           </div>
           <div
             className="col-md-8"

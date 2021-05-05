@@ -1,5 +1,6 @@
 import axios from "axios";
-import { route } from "../api_calls";
+
+import { callPlainApi, callSecuredApi } from "../../utils/api_calls";
 import {
   ADD_POST,
   GET_ERRORS,
@@ -16,26 +17,9 @@ import {
 
 // Add category
 // Add Post
-export const addCategory = (postData) => async (dispatch, getState) => {
-  console.log(postData, "post dada");
-  const token = getState().authentication.token;
-  let config = {
-    headers: {
-      Authorization: token,
-      "Content-Type": "application/json",
-    },
-  };
-  dispatch(setPostLoading());
-  dispatch(clearErrors());
-
+export const addCategory = (data) => async (dispatch) => {
   try {
-    const res = await route.post(
-      "/api/posts/category",
-      {
-        name: postData.name,
-      },
-      config
-    );
+    const res = await callSecuredApi("/category/addCategory", data, "POST");
     console.log(res.data);
     dispatch({
       type: ADD_CATEGORY,
@@ -51,29 +35,9 @@ export const addCategory = (postData) => async (dispatch, getState) => {
 };
 
 // Add Post
-export const addPost = (postData) => async (dispatch, getState) => {
-  console.log(postData, "post dada");
-  const token = getState().authentication.token;
-  let config = {
-    headers: {
-      Authorization: token,
-      "Content-Type": "application/json",
-    },
-  };
-  dispatch(setPostLoading());
-  dispatch(clearErrors());
-
+export const addPost = (data) => async (dispatch) => {
   try {
-    const res = await route.post(
-      "/api/posts",
-      {
-        text: postData.text,
-        name: postData.name,
-        owner: postData.owner,
-        category: postData.category,
-      },
-      config
-    );
+    const res = await callSecuredApi("/post/addpost", data, "POST");
     dispatch({
       type: ADD_POST,
       payload: res.data,
@@ -88,18 +52,9 @@ export const addPost = (postData) => async (dispatch, getState) => {
 };
 
 // Get Posts
-export const getPosts = () => async (dispatch, getState) => {
-  const token = getState().authentication.token;
-  let config = {
-    headers: {
-      Authorization: token,
-      "Content-Type": "application/json",
-    },
-  };
-  dispatch(setPostLoading());
-  dispatch(clearErrors());
+export const getPosts = () => async (dispatch) => {
   try {
-    const res = await route.get("/api/posts", config);
+    const res = await callSecuredApi("/posts", null, "GET");
     console.log(res.data, "for all post");
     dispatch({
       type: GET_POSTS,
@@ -114,17 +69,9 @@ export const getPosts = () => async (dispatch, getState) => {
 };
 
 // Get Post
-export const getPost = (id) => async (dispatch, getState) => {
-  const token = getState().authentication.token;
-  let config = {
-    headers: {
-      Authorization: token,
-      "Content-Type": "application/json",
-    },
-  };
-  dispatch(setPostLoading());
+export const getPost = (id) => async (dispatch) => {
   try {
-    const res = await route.get(`/api/posts/${id}`, config);
+    const res = await callSecuredApi(`/post/${id}`, null, "GET");
     console.log(res, "from post id");
     dispatch({
       type: GET_POST,
@@ -140,16 +87,7 @@ export const getPost = (id) => async (dispatch, getState) => {
 
 // for fetching categories
 export const getCategories = () => async (dispatch, getState) => {
-  const token = getState().authentication.token;
-  let config = {
-    headers: {
-      Authorization: token,
-      "Content-Type": "application/json",
-    },
-  };
-  dispatch(setPostLoading());
-  dispatch(clearErrors());
-  const res = await route.get("/api/posts/category", config);
+  const res = callSecuredApi("/categories", null, "GET");
   try {
     dispatch({
       type: GET_CATEGORIES,
@@ -165,14 +103,7 @@ export const getCategories = () => async (dispatch, getState) => {
 
 // Delete Post
 export const deletePost = (id) => async (dispatch, getState) => {
-  const token = getState().authentication.token;
-  let config = {
-    headers: {
-      Authorization: token,
-      "Content-Type": "application/json",
-    },
-  };
-  const res = await route.delete(`/api/posts/${id}`, config);
+  const res = await callSecuredApi(`/post/delete/${id}`, null, "DELETE");
   try {
     dispatch({
       type: DELETE_POST,

@@ -46,8 +46,7 @@ export default function Navbar() {
 
   const clickLogout = (e) => {
     // used to dispatch an action that logs a user out
-    dispatch(logoutUser());
-    history.push("/login");
+    dispatch(logoutUser(history));
   };
 
   const toggleDrawer = (anchor, open) => (event) => {

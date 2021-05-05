@@ -10,59 +10,45 @@ import {
 } from "./action_types";
 
 // Register User action
-export const registerUser = (params, cb = () => {}) => async (dispatch) => {
-  const { firstName, lastName, email, password, password2 } = params.data;
+export const registerUser = (data, history, cb) => async (dispatch) => {
   try {
-    const response = await callPlainApi(
-      "/api/users/register",
-      {
-        firstName,
-        lastName,
-        email,
-        password,
-        password2,
-      },
-      "POST"
-    );
-
+    const response = await callPlainApi("/register", data, "POST");
     dispatch({ type: SET_CURRENT_USER });
+    history.push("/register");
   } catch (error) {
     cb(null, error);
   }
 };
 
 // Login - Get User Token
-export const loginUser = (userData) => {
+export const loginUser = (data, history, cb) => {
   return async (dispatch) => {
-    const { email, password } = userData;
     try {
-      const res = await callPlainApi(
-        "/api/users/login",
-        { email, password },
-        "POST"
-      );
-
+      const res = await callPlainApi("/login", data, "POST");
+      console.log(res, "RESPONSE");
       // Save to localStorage
-      const { token } = res.data;
+      const { token } = res;
+      console.log(token);
       // Set token to local storage
       dispatch({ type: SET_USER_TOKEN, payload: token });
-      saveCookie("notebook", token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
-      // console.log(decoded, "decoded");
-      // Set current user
-      dispatch(setCurrentUser(decoded));
+      // Set current user;
+
+      cb("successfully logged in", null);
+      dispatch(setCurrentUser(decoded, history));
     } catch (err) {
-      dispatch({
-        type: GET_ERRORS,
-        payload: err && err.response && err.response.data,
-      });
+      cb(null, err.response.data);
     }
   };
 };
 
 // Set logged in user
-export const setCurrentUser = (decoded) => {
+export const setCurrentUser = (decoded, history = null) => {
+  if (history) {
+    history.push("/");
+  }
+
   return {
     type: SET_CURRENT_DETAIL,
     payload: decoded,
@@ -70,11 +56,10 @@ export const setCurrentUser = (decoded) => {
 };
 
 // Log user out
-export const logoutUser = () => (dispatch) => {
+export const logoutUser = (history) => (dispatch) => {
+  console.log(history, "HISTORY");
   // Remove token from localStorage
-  localStorage.removeItem("jwtToken");
-  // Remove auth header for future requests
-  setAuthToken(false);
-  // Set current user to {} which will set isAuthenticated to false
+  localStorage.removeItem("token");
+  history.push("/login");
   dispatch(setCurrentUser({}));
 };

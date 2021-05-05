@@ -2,7 +2,7 @@ import axios from "axios";
 import { getCookieValue } from "./helpers";
 
 export const config = {
-  // fetchUrl: "hhttp://jotternote.herokuapp.com",
+  // fetchUrl: "hhttp://jotternote.herokuapp.com/api/v1",
   fetchUrl: "http://localhost:5000/api/v1",
 };
 
@@ -48,7 +48,7 @@ export const callPlainApi = (url, data, method) =>
 
 export const callSecuredApi = (url, data, method, callback) => {
   const axiosOptions = {};
-  const token = getCookieValue("tractrac");
+  const token = localStorage.getItem;
   if (token) {
     axiosOptions.headers = {
       Authorization: `Bearer ${token}`,
