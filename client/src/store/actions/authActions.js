@@ -3,10 +3,10 @@ import jwt_decode from "jwt-decode";
 import { callPlainApi, callSecuredApi } from "../../utils/api_calls";
 import { saveCookie } from "../../utils/helpers";
 import {
-  GET_ERRORS,
   SET_CURRENT_USER,
   SET_USER_TOKEN,
   SET_CURRENT_DETAIL,
+  LOGOUT
 } from "./action_types";
 
 // Register User action
@@ -14,7 +14,8 @@ export const registerUser = (data, history, cb) => async (dispatch) => {
   try {
     const response = await callPlainApi("/register", data, "POST");
     dispatch({ type: SET_CURRENT_USER });
-    history.push("/register");
+    cb('registration successful', null)
+    history.push("/login");
   } catch (error) {
     cb(null, error);
   }
@@ -25,10 +26,8 @@ export const loginUser = (data, history, cb) => {
   return async (dispatch) => {
     try {
       const res = await callPlainApi("/login", data, "POST");
-      console.log(res, "RESPONSE");
       // Save to localStorage
       const { token } = res;
-      console.log(token);
       // Set token to local storage
       dispatch({ type: SET_USER_TOKEN, payload: token });
       // Decode token to get user data
@@ -44,7 +43,7 @@ export const loginUser = (data, history, cb) => {
 };
 
 // Set logged in user
-export const setCurrentUser = (decoded, history = null) => {
+export const setCurrentUser = (decoded = null, history = null) => {
   if (history) {
     history.push("/");
   }
@@ -57,9 +56,12 @@ export const setCurrentUser = (decoded, history = null) => {
 
 // Log user out
 export const logoutUser = (history) => (dispatch) => {
-  console.log(history, "HISTORY");
   // Remove token from localStorage
-  localStorage.removeItem("token");
-  history.push("/login");
+  localStorage.removeItem("authentication", "token");
   dispatch(setCurrentUser({}));
+  setAuthToken()
+  history.push("/login");
+  return {
+    type: LOGOUT
+  }
 };

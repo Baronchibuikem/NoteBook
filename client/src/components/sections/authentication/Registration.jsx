@@ -19,6 +19,7 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { registerUser } from "../../../store/actions/authActions";
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 function Copyright() {
   return (
@@ -42,11 +43,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: "center",
   },
   paper: {
-    margin: theme.spacing(8, 4),
+    margin: theme.spacing(9, 4),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    paddingTop: "20%",
+    // paddingTop: "20%",
   },
   avatar: {
     margin: theme.spacing(1),
@@ -66,19 +67,36 @@ const useStyles = makeStyles((theme) => ({
 export default function Register() {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+  const [loading, setLoading] = useState(false)
 
-  const { register, handleSubmit, errors, watch } = useForm();
+  const { register, handleSubmit, errors, watch, reset } = useForm();
+
+  const values = watch()
 
   // Here we are instantiating our dispatch action
   const dispatch = useDispatch();
 
-  const send_history = useHistory()
+  const history = useHistory()
 
   // This is used to dispatch a redux action with the needed registration data
   const regSubmit = (data) => {
+    setLoading(true)
     dispatch(
-      registerUser({
-        data,
+      registerUser(data, history, (data, error) => {
+          if(error){
+            toast.error(
+              error &&
+                error.response &&
+                error.response.data &&
+                error.response.data.message
+                ? error.response.data.message
+                : "Error in connection"
+            );
+          }else{
+            toast.success(data)
+          }
+        setLoading(false)
+        reset()
       })
     );
   };
@@ -88,11 +106,11 @@ export default function Register() {
   }));
   // Here we are checking if our authenticated value from the state is true, it yes we redirect to the homepage
   if (params.registered) {
-    send_history.push("/login")
+    history.push("/login")
   }
 
   return (
-    <Grid container component="main" className={classes.root}>
+    <Grid container component="main">
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className="center-content">
         <h3 className="container text-center">
@@ -122,9 +140,7 @@ export default function Register() {
       </Grid>
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
+         
           <Typography component="h1" variant="h5">
             Register
           </Typography>

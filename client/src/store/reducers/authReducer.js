@@ -2,7 +2,8 @@ import {
   REQUEST_LOADING,
   SET_CURRENT_USER,
   SET_USER_TOKEN,
-  SET_CURRENT_DETAIL
+  SET_CURRENT_DETAIL,
+  LOGOUT
 } from "../actions/action_types";
 import isEmpty from "../../validation/is-empty";
 
@@ -37,6 +38,12 @@ const reducer = (state = initialState, action) => {
         user: action.payload,
         isAuthenticated: true,
       };
+    case LOGOUT:
+      return {
+        ...state,
+        token: localStorage.removeItem('token'),
+        isAuthenticated: false
+      }
     default:
       return state;
   }
