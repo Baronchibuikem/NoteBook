@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { useHistory, Link, Redirect } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../../../assets/css/Login.css";
 import { loginUser } from "../../../store/actions/authActions";
@@ -86,7 +86,7 @@ const Login = () => {
   }));
 
   // this is used to dispatch a redux action with the neeeded login data
-  const regSubmit = (data) => {
+  const loginSubmitData = (data) => {
     setLoading(true);
     dispatch(
       loginUser(data, history, (data, error) => {
@@ -127,7 +127,7 @@ const Login = () => {
           <form
             className={classes.form}
             noValidate
-            onSubmit={handleSubmit(regSubmit)}
+            onSubmit={handleSubmit(loginSubmitData)}
           >
             <TextField
               variant="outlined"
