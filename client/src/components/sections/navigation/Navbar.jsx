@@ -153,7 +153,6 @@ export default function Navbar() {
               <MenuIcon />
             </IconButton>
             <Drawer
-              // style={{ backgroundColor: "green" }}
               anchor={anchor}
               open={state[anchor]}
               onClose={toggleDrawer(anchor, false)}
@@ -164,7 +163,7 @@ export default function Navbar() {
           </React.Fragment>
         ))}
         <Typography variant="h6" className="mr-auto ml-3 content-size">
-          Hi {params.user.firstName} {""} {params.user.lastName} {""}welcome to
+          Hi {params.user ? params.user.firstName: ""} {""} {params.user ? params.user.lastName : ""} {""}welcome to
           your JotterNote
         </Typography>
       </Toolbar>

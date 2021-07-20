@@ -20,3 +20,4 @@ export const DISABLE_LOADING = "DISABLE_LOADING";
 export const SERVER_ERRORS = "SERVER_ERRORS";
 export const ADD_CATEGORY = "ADD_CATEGORY";
 export const LOGOUT = "LOGOUT"
+export const LOGIN = "LOGIN"
