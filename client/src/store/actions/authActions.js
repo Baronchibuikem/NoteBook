@@ -6,7 +6,8 @@ import {
   SET_CURRENT_USER,
   SET_USER_TOKEN,
   SET_CURRENT_DETAIL,
-  LOGOUT
+  LOGOUT,
+  LOGIN
 } from "./action_types";
 
 // Register User action
@@ -22,24 +23,45 @@ export const registerUser = (data, history, cb) => async (dispatch) => {
 };
 
 // Login - Get User Token
-export const loginUser = (data, history, cb) => {
-  return async (dispatch) => {
-    try {
-      const res = await callPlainApi("/login", data, "POST");
-      // Save to localStorage
-      const { token } = res;
-      // Set token to local storage
-      dispatch({ type: SET_USER_TOKEN, payload: token });
-      // Decode token to get user data
-      const decoded = jwt_decode(token);
-      // Set current user;
+// export const loginUser = (data, history, cb) => {
+//   return async (dispatch) => {
+//     try {
+//       const res = await callPlainApi("/login", data, "POST");
+//       // Save to localStorage
+//       const { token } = res;
+//       // Set token to local storage
+//       dispatch({ type: SET_USER_TOKEN, payload: token });
+//       // Decode token to get user data
+//       const decoded = jwt_decode(token);
+//       // Set current user;
 
-      cb("successfully logged in", null);
-      dispatch(setCurrentUser(decoded, history));
-    } catch (err) {
-      cb(null, err.response.data);
-    }
-  };
+//       cb("successfully logged in", null);
+//       dispatch(setCurrentUser(decoded, history));
+//     } catch (err) {
+//       cb(null, err.response.data);
+//     }
+//   };
+// };
+
+export const loginUser = (data, history, cb = () => {}) => async (
+  dispatch
+) => {
+  const authenticate = true;
+  try {
+    const authResponse = await callPlainApi("/login", data, "POST");
+    const { token, data: user } = authResponse;
+    dispatch({
+      type: LOGIN,
+      user: user,
+      token,
+      userRole: user.userRole,
+      authenticated: authenticate,
+    });
+    saveCookie("jotternote", token);
+    history.push("/");
+  } catch (error) {
+    cb(null, error);
+  }
 };
 
 // Set logged in user
@@ -54,14 +76,8 @@ export const setCurrentUser = (decoded = null, history = null) => {
   };
 };
 
-// Log user out
-export const logoutUser = (history) => (dispatch) => {
-  // Remove token from localStorage
-  localStorage.removeItem("authentication", "token");
-  dispatch(setCurrentUser({}));
-  setAuthToken()
-  history.push("/login");
-  return {
-    type: LOGOUT
-  }
+export const logoutUser = () => async (dispatch) => {
+  dispatch({
+    type: LOGOUT,
+  });
 };

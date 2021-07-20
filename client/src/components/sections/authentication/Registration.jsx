@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
 
-import Avatar from "@material-ui/core/Avatar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { makeStyles } from "@material-ui/core/styles";
 
 import "../../../assets/css/Login.css";
 import { Link, Redirect, useHistory } from "react-router-dom";
@@ -21,22 +20,10 @@ import { registerUser } from "../../../store/actions/authActions";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="#">
-        Baron Chibuikem
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100vh",
+    height: "25vh",
   },
   image: {
     backgroundSize: "cover",
@@ -47,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    // paddingTop: "20%",
+    paddingTop: "20%",
   },
   avatar: {
     margin: theme.spacing(1),
@@ -138,9 +125,11 @@ export default function Register() {
           </li>
         </ul>
       </Grid>
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square >
         <div className={classes.paper}>
-         
+        <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
           <Typography component="h1" variant="h5">
             Register
           </Typography>
