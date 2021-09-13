@@ -8,9 +8,6 @@ import * as Tracing from "@sentry/tracing";
 import morgan from "morgan";
 import "dotenv/config";
 import router from "./routes/router";
-// For swagger ui documentation
-import swaggerUi from "swagger-ui-express";
-import swaggerDocument from "./swagger.json";
 
 const dbName = process.env.MONGO_URI_FOR_DEVELOPMENT;
 
@@ -56,23 +53,39 @@ app.get("/", (req, res) =>
 );
 
 // Api Routes
-
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api/v1", router);
 // eslint-disable-next-line no-unused-vars
-app.use((error, req, res, next) => {
-  Sentry.configureScope((scope) => {
-    scope.setTag("user", req.userData ? req.userData : "");
-    scope.setUser({
-      email: req.userData && req.userData.email ? req.userData.email : "",
-    });
-  });
-  console.log(error);
-  Sentry.captureException(error.error);
-  res.status(500).json({
-    message: error.message,
-  });
+
+// sentry configuration
+
+Sentry.init({
+  dsn: "https://c53f1ce790bc410388da9ff45bdffcbe@o969053.ingest.sentry.io/5956187",
+  integrations: [
+    // enable HTTP calls tracing
+    new Sentry.Integrations.Http({ tracing: true }),
+    // enable Express.js middleware tracing
+    new Tracing.Integrations.Express({ app }),
+  ],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
 });
+
+// RequestHandler creates a separate execution context using domains, so that every
+// transaction/span/breadcrumb is attached to its own Hub instance
+app.use(Sentry.Handlers.requestHandler());
+// TracingHandler creates a trace for every incoming request
+app.use(Sentry.Handlers.tracingHandler());
+
+// All controllers should live here
+app.get("/", function rootHandler(req, res) {
+  res.end("Hello world!");
+});
+
+// The error handler must be before any other error middleware and after all controllers
+app.use(Sentry.Handlers.errorHandler());
 
 // eslint-disable-next-line no-unused-vars
 if (process.env.NODE_ENV === "production") {

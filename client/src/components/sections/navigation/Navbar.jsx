@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -138,33 +138,44 @@ export default function Navbar() {
     </div>
   );
 
+  const showDrawer = (anchor) => {
+    if (params.authenticated) {
+      return (
+        <Fragment>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={toggleDrawer(anchor, true)}
+            edge="start"
+            className="ml-5"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Drawer
+            anchor={anchor}
+            open={state[anchor]}
+            onClose={toggleDrawer(anchor, false)}
+            color="inherit"
+          >
+            {list(anchor)}
+          </Drawer>
+        </Fragment>
+      );
+    } else {
+      return null;
+    }
+  };
+
   return (
     <AppBar position="fixed">
       <Toolbar style={{ backgroundColor: "green" }}>
         {["left"].map((anchor) => (
-          <React.Fragment key={anchor}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer(anchor, true)}
-              edge="start"
-              className="ml-5"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Drawer
-              anchor={anchor}
-              open={state[anchor]}
-              onClose={toggleDrawer(anchor, false)}
-              color="inherit"
-            >
-              {list(anchor)}
-            </Drawer>
-          </React.Fragment>
+          <Fragment key={anchor}>{showDrawer(anchor)}</Fragment>
         ))}
         <Typography variant="h6" className="mr-auto ml-3 content-size">
-          Hi {params.user ? params.user.firstName: ""} {""} {params.user ? params.user.lastName : ""} {""}welcome to
-          your JotterNote
+          Hi {params.user ? params.user.firstName : ""} {""}{" "}
+          {params.user ? params.user.lastName : ""} {""}welcome to your
+          JotterNote
         </Typography>
       </Toolbar>
     </AppBar>
