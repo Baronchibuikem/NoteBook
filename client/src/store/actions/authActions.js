@@ -7,7 +7,7 @@ import {
   SET_USER_TOKEN,
   SET_CURRENT_DETAIL,
   LOGOUT,
-  LOGIN
+  LOGIN,
 } from "./action_types";
 
 // Register User action
@@ -15,7 +15,7 @@ export const registerUser = (data, history, cb) => async (dispatch) => {
   try {
     const response = await callPlainApi("/register", data, "POST");
     dispatch({ type: SET_CURRENT_USER });
-    cb('registration successful', null)
+    cb("registration successful", null);
     history.push("/login");
   } catch (error) {
     cb(null, error);
@@ -43,26 +43,27 @@ export const registerUser = (data, history, cb) => async (dispatch) => {
 //   };
 // };
 
-export const loginUser = (data, history, cb = () => {}) => async (
-  dispatch
-) => {
-  const authenticate = true;
-  try {
-    const authResponse = await callPlainApi("/login", data, "POST");
-    const { token, data: user } = authResponse;
-    dispatch({
-      type: LOGIN,
-      user: user,
-      token,
-      userRole: user.userRole,
-      authenticated: authenticate,
-    });
-    saveCookie("jotternote", token);
-    history.push("/");
-  } catch (error) {
-    cb(null, error);
-  }
-};
+export const loginUser =
+  (data, history, cb = () => {}) =>
+  async (dispatch) => {
+    const authenticate = true;
+    try {
+      const authResponse = await callPlainApi("/login", data, "POST");
+      const { token, data: user } = authResponse;
+      dispatch({
+        type: LOGIN,
+        user: user,
+        token,
+        userRole: user.userRole,
+        authenticated: authenticate,
+      });
+      saveCookie("jotternote", token);
+      history.push("/");
+    } catch (error) {
+      console.log(error.response.data);
+      cb(null, error);
+    }
+  };
 
 // Set logged in user
 export const setCurrentUser = (decoded = null, history = null) => {
