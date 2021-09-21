@@ -17,20 +17,14 @@ import {
 
 // Add category
 // Add Post
-export const addCategory = (data) => async (dispatch) => {
+export const addCategory = (data, cb) => async (dispatch) => {
+  console.log(data, "category name");
   try {
-    const res = await callSecuredApi("/category/addCategory", data, "POST");
-    console.log(res.data);
-    dispatch({
-      type: ADD_CATEGORY,
-      payload: res.data,
-    });
+    await callSecuredApi("/category/addCategory", data, "POST");
+    cb("Category added", null);
+    dispatch(getCategories());
   } catch (error) {
-    console.log(error);
-    dispatch({
-      type: GET_ERRORS,
-      payload: error.response.data,
-    });
+    cb(null, error);
   }
 };
 
@@ -87,7 +81,7 @@ export const getPost = (id) => async (dispatch) => {
 
 // for fetching categories
 export const getCategories = () => async (dispatch, getState) => {
-  const res = callSecuredApi("/categories", null, "GET");
+  const res = await callSecuredApi("/categories", null, "GET");
   try {
     dispatch({
       type: GET_CATEGORIES,

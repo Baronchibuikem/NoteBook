@@ -4,7 +4,7 @@ import {
   SET_USER_TOKEN,
   SET_CURRENT_DETAIL,
   LOGOUT,
-  LOGIN
+  LOGIN,
 } from "../actions/action_types";
 import isEmpty from "../../validation/is-empty";
 
@@ -14,7 +14,7 @@ const initialState = {
   user: null,
   isAuthenticated: false,
   userRole: [],
-  token: "",
+  token: localStorage.getItem("token"),
 };
 
 const reducer = (state = initialState, action) => {
@@ -40,13 +40,13 @@ const reducer = (state = initialState, action) => {
         user: action.payload,
         isAuthenticated: true,
       };
-      case LOGOUT:
-        return initialState;
+    case LOGOUT:
+      return initialState;
     case LOGIN:
       return {
         ...state,
         userRole: action.userRole,
-        token: action.token,
+        token: localStorage.setItem("token", action.token),
         user: action.user,
         isAuthenticated: action.authenticated,
       };

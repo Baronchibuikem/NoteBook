@@ -57,10 +57,8 @@ export const loginUser =
         userRole: user.userRole,
         authenticated: authenticate,
       });
-      saveCookie("jotternote", token);
       history.push("/");
     } catch (error) {
-      console.log(error.response.data);
       cb(null, error);
     }
   };
