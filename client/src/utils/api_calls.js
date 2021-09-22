@@ -48,7 +48,7 @@ export const callPlainApi = (url, data, method) =>
 
 export const callSecuredApi = (url, data, method, callback) => {
   const axiosOptions = {};
-  const token = localStorage.getItem;
+  const token = localStorage.getItem("token");
   if (token) {
     axiosOptions.headers = {
       Authorization: `Bearer ${token}`,

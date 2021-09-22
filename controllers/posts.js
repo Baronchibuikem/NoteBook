@@ -44,6 +44,7 @@ export const addPost = async (req, res, next) => {
 
 // for adding a new category
 export const addCategory = async (req, res, next) => {
+  // get name of category and authenticated userID
   const { name } = req.body;
   const { userId } = req.userData;
 
