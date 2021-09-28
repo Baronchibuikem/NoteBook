@@ -74,7 +74,7 @@ const TextEditor = (props) => {
               error={errors?.category?.message}
             >
               {params.allcategory?.map((category) => (
-                <option value={category.name} key={category.id}>
+                <option value={category._id} key={category.id}>
                   {category.name}
                 </option>
               ))}

@@ -35,6 +35,7 @@ export default function SimpleCard(props) {
 
   // For truncating the number of text to 30
   const truncate = (str) => {
+    console.log(str, "string");
     return str.length > 100 ? str.substring(0, 100) + "..." : str;
   };
 
@@ -56,7 +57,7 @@ export default function SimpleCard(props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={props.name}
+        title={props.title}
         subheader={props.category}
       />
       <CardContent>
@@ -65,7 +66,7 @@ export default function SimpleCard(props) {
           color="textSecondary"
           gutterBottom
         >
-          {truncate(props.text)}
+          {truncate(props.content)}
         </Typography>
       </CardContent>
       <div className="d-flex justify-content-between my-3">

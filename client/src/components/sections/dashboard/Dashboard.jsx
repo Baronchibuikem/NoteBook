@@ -47,6 +47,7 @@ function Dashboard() {
     dispatch(getPost(id));
   };
 
+  console.log(addPost, "add post", params.singlepost, "single post");
   // this is used to dispatch a redux action with the neeeded login data
   const category = (data) => {
     setLoading(true);
@@ -163,9 +164,9 @@ function Dashboard() {
               ? params.allpost.map((post) => (
                   <div key={post._id}>
                     <Card
-                      text={post.text}
+                      content={post.title}
                       category={post.category.name}
-                      name={post.name}
+                      title={post.title}
                       id={post._id}
                       click={get_post}
                     />
@@ -179,7 +180,7 @@ function Dashboard() {
           >
             {params.singlepost !== null &&
             !addPost &&
-            params.singlepost.owner._id === params.user.id ? (
+            params.singlepost.owner._id === params.user._id ? (
               <SinglePost
                 name={params.singlepost.name}
                 text={params.singlepost.text}
