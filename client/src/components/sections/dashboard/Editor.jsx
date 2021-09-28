@@ -5,97 +5,103 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ReactHtmlParser from "react-html-parser";
 import "../../../assets/css/GeneralStyles.css";
 import { addPost } from "../../../store/actions/postActions";
+import { toast } from "react-toastify";
+import { useForm, Controller } from "react-hook-form";
+import {
+  TextField,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+} from "@material-ui/core";
+import { CustomSelect } from "../../libs/custom-select.component";
 
 // import the config here
 // import { config } from "../../../editorConfig";
 
 const TextEditor = (props) => {
-  const [addText, setAddText] = useState("");
-  const [addTitle, setAddTitle] = useState("");
   const [addCategory, setAddCategory] = useState("");
-  const [addedData, setAddedData] = useState(0);
-  const [displayError, setDisplayError] = useState(null);
 
   const dispatch = useDispatch();
 
   // for fetching state
   const params = useSelector((state) => ({
     allcategory: state.postreducer.categories,
-    userId: state.authentication.user.id,
+    userId: state.authentication.user._id,
   }));
 
-  const submit = (e) => {
-    e.preventDefault();
-    if (addCategory === "") {
-      setDisplayError("Category cannot be None");
-    } else {
-      const data = {
-        name: addTitle,
-        text: addText,
-        category: addCategory,
-        owner: params.userId,
-      };
+  // hooks form
+  const { register, handleSubmit, errors, watch, reset } = useForm({
+    mode: "all",
+    defaultValues: {
+      title: "",
+      content: "",
+      category: "",
+    },
+  });
 
-      dispatch(addPost(data));
-      // reset all the input to empty
-      setAddTitle("");
-      setAddText("");
-      setAddCategory("");
-    }
+  const values = watch();
+
+  const submitPost = (data) => {
+    data.owner = params.userId;
+    dispatch(addPost(data));
+    // reset all the input to empty
+    reset();
   };
 
-  const handleChange = (e) => {
-    setAddText(e.target.value);
-  };
-
-  const handleTitleChange = (e) => {
-    setAddTitle(e.target.value);
-  };
-
-  const handleCategoryChange = (e) => {
-    setDisplayError(null);
-    setAddCategory(e.target.value);
+  const handleCategoryChange = (event) => {
+    console.log(event.target.value);
+    setAddCategory(event.target.value);
   };
 
   return (
     <div>
-      <form onSubmit={submit}>
+      <form onSubmit={handleSubmit(submitPost)}>
         {
           <div>
-            <select
-              id=""
-              className="form-control"
+            <CustomSelect
+              label="Select a category"
+              name="category"
+              customRef={register({
+                required: {
+                  value: true,
+                  message: "Required!",
+                },
+              })}
+              fullWidth
               onChange={handleCategoryChange}
+              value={values.category}
+              error={errors?.category?.message}
             >
-              <option value="None" selected>
-                None Selected{" "}
-              </option>
-              {params.allcategory && params.allcategory.length >= 0
-                ? params.allcategory.map((category) => (
-                    <option key={category._id} value={category._id}>
-                      {category.name}
-                    </option>
-                  ))
-                : "No category added yet"}
-            </select>
-            {displayError ? (
-              <div className="text-danger text-center">{displayError} </div>
-            ) : null}
-            <input
-              type="text"
-              name="name"
+              {params.allcategory?.map((category) => (
+                <option value={category.name} key={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </CustomSelect>
+
+            <TextField
+              variant="outlined"
+              margin="normal"
               required
-              placeholder="Enter title here"
-              className="form-control my-3 p-4"
-              onChange={handleTitleChange}
+              fullWidth
+              label="Post Title"
+              name="title"
+              value={values.title}
+              inputRef={register({ required: true })}
             />
-            <textarea
+            <TextField
               required
-              rows="24"
-              maxLength="5000"
-              className="form-control "
-              onChange={handleChange}
-            ></textarea>
+              margin="normal"
+              multiline
+              rows={25}
+              fullWidth
+              name="content"
+              variant="outlined"
+              label="Content"
+              value={values.content}
+              inputRef={register({ required: true })}
+            />
           </div>
         }
         <div className="d-flex justify-content-between">

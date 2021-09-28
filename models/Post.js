@@ -8,7 +8,7 @@ const PostSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "user",
   },
-  name: {
+  title: {
     type: String,
     required: true,
   },
@@ -16,7 +16,7 @@ const PostSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "category",
   },
-  text: {
+  content: {
     type: String,
     required: false,
   },

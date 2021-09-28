@@ -30,6 +30,7 @@ export const addCategory = (data, cb) => async (dispatch) => {
 
 // Add Post
 export const addPost = (data) => async (dispatch) => {
+  console.log(data);
   try {
     const res = await callSecuredApi("/post/addpost", data, "POST");
     dispatch({
@@ -38,10 +39,6 @@ export const addPost = (data) => async (dispatch) => {
     });
   } catch (error) {
     console.log(error);
-    dispatch({
-      type: GET_ERRORS,
-      payload: error.response.data,
-    });
   }
 };
 

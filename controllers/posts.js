@@ -22,12 +22,12 @@ export const getAllCurrentUserPost = async (req, res, next) => {
 
 // for adding a new post
 export const addPost = async (req, res, next) => {
-  const { text, name, category, owner } = req.body;
+  const { content, title, category, owner } = req.body;
 
   try {
     const newPost = await Post.create({
-      text: text,
-      name: name,
+      content: content,
+      title: title,
       owner: owner,
       category: category,
     });

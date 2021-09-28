@@ -50,7 +50,7 @@ export default function (state = initialState, action) {
     case ADD_CATEGORY:
       return {
         ...state,
-        categories: [action.payload, ...state.categories],
+        categories: [action.payload],
         loading: false,
       };
     case GET_CATEGORIES:
